@@ -6,7 +6,6 @@ class ProfileViewModel : ViewModel() {
 
     private var username = ""
 
-
     fun getUsername(): String {
         return username
     }
@@ -15,5 +14,8 @@ class ProfileViewModel : ViewModel() {
         username = newUsername
     }
 
-
+    fun isUsernameCorrect(username: String): Boolean {
+        if (username.isEmpty()) return false
+        return true
+    }
 }
