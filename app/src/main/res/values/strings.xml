@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MTS_music</string>
+    <string name="digital_economy">ЦИФРОВАЯ\nЭКОСИСТЕМА</string>
+    <string name="auth_text">Войти</string>
+    <string name="register_text">Зарегистрироваться</string>
+    <string name="next">Далее</string>
 </resources>
