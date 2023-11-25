@@ -99,7 +99,7 @@ fun RoomCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "${room.numberOfUsers}/5",
+                    text = "${room.users.size}/5",
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Icon(

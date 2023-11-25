@@ -16,14 +16,14 @@ class Converter {
         val usersSerialization = room.users.map {
             convertUserToUserSerialization(it)
         }
-        return RoomSerialization(room.author, usersSerialization, room.access)
+        return RoomSerialization(room.roomName, room.author, usersSerialization, room.access)
     }
 
     fun convertRoomSerializationToRoom(room: RoomSerialization): Room {
         val users = room.users.map {
             convertUserSerializationToUser(it)
         }
-        return Room(room.author, users, room.access)
+        return Room(room.roomName, room.author, users, room.access)
     }
 
     // Code
