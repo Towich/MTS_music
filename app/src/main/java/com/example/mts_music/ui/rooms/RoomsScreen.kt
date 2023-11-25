@@ -16,12 +16,14 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,12 +43,29 @@ fun RoomsScreen(
         modifier = Modifier
             .padding(start = 20.dp, top = 30.dp, end = 20.dp)
     ) {
-        Text(
-            text = "Комнаты",
-            style = MaterialTheme.typography.displayMedium,
+        Row(
             modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp)
-        )
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Комнаты",
+                style = MaterialTheme.typography.displayMedium,
+                modifier = Modifier
+                    .padding(start = 10.dp, end = 10.dp)
+            )
+            IconButton(onClick = {
+                navController.navigate(Screen.NewRoomScreen.route)
+            }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.plus_icon),
+                    contentDescription = null,
+                    tint = Color.Unspecified
+                )
+            }
+        }
+
 
         LazyVerticalGrid(
             state = rememberLazyGridState(),

@@ -19,6 +19,8 @@ import com.example.mts_music.App
 import com.example.mts_music.Constants
 import com.example.mts_music.ui.auth.AuthScreen
 import com.example.mts_music.ui.auth.AuthViewModel
+import com.example.mts_music.ui.newRoom.NewRoomScreen
+import com.example.mts_music.ui.newRoom.NewRoomViewModel
 import com.example.mts_music.ui.profile.ProfileScreen
 import com.example.mts_music.ui.profile.ProfileViewModel
 import com.example.mts_music.ui.room.RoomRepository
@@ -71,6 +73,14 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
                 navController = navController,
                 context = context,
                 mViewModel = viewModel(factory = RoomViewModel.RoomViewModelFactory(context, app.roomRepository))
+            )
+        }
+        composable(
+            route = Screen.NewRoomScreen.route
+        ) {
+            NewRoomScreen(
+                navController = navController,
+                mViewModel = viewModel(factory = NewRoomViewModel.NewRoomViewModelFactory(context, app.roomRepository))
             )
         }
     }

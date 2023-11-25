@@ -28,6 +28,12 @@ sealed class Screen(val route : String, val title : String, val icon: Int) {
         icon = R.drawable.rooms_icon
     )
 
+    object NewRoomScreen : Screen(
+        route = "new_room_screen",
+        title = "Новая комната",
+        icon = R.drawable.rooms_icon
+    )
+
     object Items{
         val list = listOf(
             RoomsScreen, ProfileScreen

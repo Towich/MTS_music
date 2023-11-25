@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // TODO: Изменить конец на Screen.AuthorizationScreen
-        val startScreen = if (flagStart) Screen.RoomScreen else Screen.AuthorizationScreen
+        val startScreen = if (flagStart) Screen.RoomScreen else Screen.NewRoomScreen
         Constants.startScreen = startScreen
 
         setContent {
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         when (NavigationRouter.currentScreen.value) {
-                            Screen.AuthorizationScreen, Screen.RoomScreen -> null
+                            Screen.AuthorizationScreen, Screen.RoomScreen, Screen.NewRoomScreen -> null
                             else -> {
                                 CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                     if (screen.route != NavigationRouter.currentScreen.value.route) {

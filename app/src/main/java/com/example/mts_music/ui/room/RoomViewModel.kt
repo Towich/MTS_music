@@ -29,12 +29,10 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
 
     fun getMediaPlayer(): MediaPlayer = repository.getMediaPlayer()
 
-    fun generateDeepLink(): String {
+    fun generateDeepLink(roomId: String, roomToken: String): String {
         val currentRoom = getCurrentRoom()
-        val mockId = "123456" // Замените на реальный идентификатор комнаты
-        val mockToken = "abc123" // Замените на реальный токен
         if (currentRoom.id.isNotEmpty() && currentRoom.roomToken.isNotEmpty()) {
-            return "https://mtsroom.com/room_screen?id=${mockId}&token=${mockToken}"
+            return "https://mtsroom.com/room_screen?id=$roomId&token=$roomToken"
         }
         return ""
     }

@@ -9,5 +9,4 @@ data class Room(
     val authorRoom: String = "error",
     val users: List<User> = listOf(),
     val access: Int = 0,
-
-    )
+)

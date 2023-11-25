@@ -1,8 +1,10 @@
 package com.example.mts_music.ui.room
 
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaPlayer
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,7 +48,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -234,7 +238,11 @@ fun RoomScreen(
             SecondaryButton(
                 onClick = {
                     scope.launch {
-                        uriQRCode = mViewModel.generateQrCode("bhdfhdrfygdtghdtfhhtrhrfghgfhttyrdgla-gfhdfhdfhfghrtfghfghfghfghf")
+                        uriInviteToRoom = mViewModel.generateDeepLink(
+                            roomId = currentRoom.id,
+                            roomToken = currentRoom.roomToken
+                        )
+                        uriQRCode = mViewModel.generateQrCode(uriInviteToRoom)
                         sheetState.expand()
                     }.invokeOnCompletion {
                         if (sheetState.isVisible) {
@@ -266,6 +274,9 @@ fun RoomScreen(
                         .height(500.dp),
                     containerColor = Color.White
                 ) {
+                    val clipboardManager: androidx.compose.ui.platform.ClipboardManager = LocalClipboardManager.current
+
+
                     Column(
                         modifier = Modifier
                             .padding(start = 30.dp, end = 30.dp)
@@ -297,11 +308,16 @@ fun RoomScreen(
                                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary
                             ),
                             trailingIcon = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.copy_link),
-                                    contentDescription = null,
-                                    tint = Color.Unspecified
-                                )
+                                IconButton(onClick = {
+                                    clipboardManager.setText(AnnotatedString(uriInviteToRoom))
+                                    Toast.makeText(context, "Скопировано!", Toast.LENGTH_SHORT).show()
+                                }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.copy_link),
+                                        contentDescription = null,
+                                        tint = Color.Unspecified
+                                    )
+                                }
                             }
                         )
 
@@ -315,7 +331,7 @@ fun RoomScreen(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 10.dp),
+                                .padding(top = 20.dp),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Image(
