@@ -15,6 +15,7 @@ import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.theme.MTS_musicTheme
 import com.example.mts_music.ui.bottomNavigation.CustomBottomNavigation
+import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,10 @@ class MainActivity : ComponentActivity() {
 
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
+
+        val roomId = "your_room_id"
+        val token = UUID.randomUUID().toString()
+        val deepLink = "https://mts_room.com/room_screen/$roomId?token=$token"
 
         if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
             val path: String? = appLinkData.path

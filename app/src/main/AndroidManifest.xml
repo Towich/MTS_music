@@ -26,7 +26,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="example.com" android:pathPrefix="/specificScreen" />
+                <data android:scheme="http" android:host="mtsroom.com" android:pathPrefix="/room_screen" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
