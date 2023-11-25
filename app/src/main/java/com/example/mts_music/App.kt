@@ -8,6 +8,6 @@ import com.example.mts_music.ui.room.RoomRepository
 class App: Application() {
 
     val authRepository by lazy { AuthRepository()}
-    val roomRepository by lazy { RoomRepository()}
+    val roomRepository by lazy { RoomRepository(applicationContext)}
     val profileRepository by lazy { ProfileRepository() }
 }

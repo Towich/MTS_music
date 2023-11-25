@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
 
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
+        val app = applicationContext as App
 
         if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
             val path: String? = appLinkData.path
@@ -53,7 +54,7 @@ class MainActivity : ComponentActivity() {
                 ) { contentPadding ->
                     run {
                         Box(modifier = Modifier.padding(contentPadding)) {
-                            Navigation(navController, applicationContext)
+                            Navigation(app, navController, applicationContext)
                         }
                     }
                 }
