@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.MainActivity
 import com.example.mts_music.SharedPreferences
 
-class AuthViewModel(context: Context) : ViewModel() {
+class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
 
     private var phoneNumber = ""
     val sharedPreference: SharedPreferences =SharedPreferences(context = context)
@@ -32,11 +32,11 @@ class AuthViewModel(context: Context) : ViewModel() {
     }
 
     fun mobileLogin() {
-
+        repository.mobileLogin()
     }
 
-    class AuthViewModelFactory(private val context: Context) :
+    class AuthViewModelFactory(private val context: Context, private val repository: AuthRepository) :
         ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = AuthViewModel(context) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = AuthViewModel(context, repository) as T
     }
 }

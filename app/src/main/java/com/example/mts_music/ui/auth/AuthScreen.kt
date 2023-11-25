@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.mts_music.App
 import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
@@ -53,7 +54,9 @@ import com.example.mts_music.navigation.Screen
 fun AuthScreen(
     navController: NavController,
     context: Context,
-    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(context))
+    application: App = context.applicationContext as App,
+    repository: AuthRepository = application.authRepository,
+    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(context, repository))
 ) {
     val sheetStateSetNumber = rememberModalBottomSheetState(
        skipPartiallyExpanded = true
