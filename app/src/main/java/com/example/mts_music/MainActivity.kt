@@ -13,26 +13,30 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mts_music.navigation.Navigation
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
-import com.example.mts_music.ui.theme.MTS_musicTheme
 import com.example.mts_music.ui.bottomNavigation.CustomBottomNavigation
+import com.example.mts_music.ui.theme.MTS_musicTheme
 import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val app = applicationContext as App
+
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
 
-        val roomId = "your_room_id"
-        val token = UUID.randomUUID().toString()
-        val deepLink = "https://mts_room.com/room_screen/$roomId?token=$token"
+//        val deepLink = "https://mts_room.com/room_screen/$roomId?token=$token"
 
         if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
             val path: String? = appLinkData.path
 
-            // Пока нет проверки на токен
             if (path != null && path.contains("room_screen")) {
+                val token: String? = appLinkData.getQueryParameter("token")
+                if (!token.isNullOrEmpty()) {
+                    app.roomRepository.isTokenValid(token)
+                }
+
                 NavigationRouter.currentScreen.value = Screen.RoomScreen
             }
         }
@@ -58,7 +62,7 @@ class MainActivity : ComponentActivity() {
                 ) { contentPadding ->
                     run {
                         Box(modifier = Modifier.padding(contentPadding)) {
-                            Navigation(navController, applicationContext)
+                            Navigation(app, navController, applicationContext)
                         }
                     }
                 }

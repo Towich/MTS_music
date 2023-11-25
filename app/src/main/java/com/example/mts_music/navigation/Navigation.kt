@@ -32,8 +32,7 @@ object NavigationRouter {
 }
 
 @Composable
-fun Navigation(navController: NavHostController, context: Context) {
-    val app = context.applicationContext as App
+fun Navigation(app: App, navController: NavHostController, context: Context) {
 
     NavHost(
         navController = navController,

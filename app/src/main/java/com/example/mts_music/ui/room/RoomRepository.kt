@@ -8,9 +8,15 @@ class RoomRepository {
     private val apiService by lazy {
         ApiService.create()
     }
+
     fun setCurrentRoom(newRoom: Room){
         currentRoom = newRoom
     }
 
     fun getCurrentRoom(): Room? = currentRoom
+
+    fun isTokenValid(token: String): Boolean {
+        val room = currentRoom ?: return false
+        return room.roomToken == token
+    }
 }
