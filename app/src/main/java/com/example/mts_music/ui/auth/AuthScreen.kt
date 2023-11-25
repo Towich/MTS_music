@@ -1,5 +1,6 @@
 package com.example.mts_music.ui.auth
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -56,6 +57,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(
@@ -74,6 +76,16 @@ fun AuthScreen(
     )
 
     val scope = rememberCoroutineScope()
+
+    //Проверка авторизации
+    scope.launch {
+        val isAuth = viewModel.checkAuthorization()
+        if(isAuth) {
+            navController.navigate(Screen.ProfileScreen.route){
+                popUpTo(0)
+            }
+        }
+    }
 
     var showSetNumberBottomSheet by remember { mutableStateOf(false) }
     var showGetSmsBottomSheet by remember { mutableStateOf(false) }

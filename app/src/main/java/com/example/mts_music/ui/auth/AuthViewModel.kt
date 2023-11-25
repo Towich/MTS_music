@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.Constants.PHONENUMBER
+import com.example.mts_music.Constants.USERNAME
 import com.example.mts_music.SharedPreferences
 
 class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
@@ -47,6 +48,14 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
         if(response == "success") {
             sharedPreference.saveString(PHONENUMBER, getPhoneNumber())
         }
+    }
+
+    fun checkAuthorization():Boolean {
+        if(sharedPreference.getValueString(USERNAME)!= null &&
+            sharedPreference.getValueString(PHONENUMBER)!= null) {
+            return true
+        }
+        return false
     }
 
     class AuthViewModelFactory(private val context: Context, private val repository: AuthRepository) :

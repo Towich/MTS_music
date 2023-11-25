@@ -30,11 +30,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mts_music.R
 import com.example.mts_music.data.Room
+import com.example.mts_music.navigation.Screen
 
 @Composable
 fun RoomsScreen(
     navController: NavController,
-    mViewModel: RoomsViewModel = viewModel()
+    mViewModel: RoomsViewModel
 ) {
     Column(
         modifier = Modifier
@@ -59,7 +60,13 @@ fun RoomsScreen(
                     item.hashCode()
                 }
             ) { _, item ->
-                RoomCard(room = item)
+                RoomCard(
+                    room = item,
+                    onClick = {
+                        mViewModel.setCurrentRoom(item)
+                        navController.navigate(Screen.RoomScreen.route)
+                    }
+                )
             }
         }
     }
@@ -67,13 +74,14 @@ fun RoomsScreen(
 
 @Composable
 fun RoomCard(
-    room: Room
+    room: Room,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .padding(start = 10.dp, end = 10.dp, bottom = 15.dp)
             .height(150.dp)
-            .clickable { /* TODO */ },
+            .clickable { onClick() },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary
         )

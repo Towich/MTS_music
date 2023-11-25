@@ -218,7 +218,8 @@ fun ProfileScreen(
                     )
 
                     PrimaryButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                                  viewModel.exitFromAccount() },
                         text = "Выйти",
                         backgroundColor = MaterialTheme.colorScheme.secondary,
                         textColor = Orange,

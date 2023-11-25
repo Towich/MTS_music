@@ -6,7 +6,9 @@ import kotlinx.serialization.Serializable
 data class RoomSerialization(
     val id: String,
     val roomName: String,
-    val author: String,
+    val playingAudio: String,
+    val authorAudio: String = "error",
+    val authorRoom: String,
     val users: List<UserSerialization>,
     val access: Int
 )
