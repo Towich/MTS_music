@@ -188,7 +188,7 @@ fun AuthScreen(
                                 showSetNumberBottomSheet = false
                                 showGetSmsBottomSheet = true
                                 viewModel.setPhoneNumber(numberText)
-                                viewModel.mobileLogin()
+                                viewModel.mobileLogin(numberText)
                             }
                             else{
                                 showIncorrectPhone = true

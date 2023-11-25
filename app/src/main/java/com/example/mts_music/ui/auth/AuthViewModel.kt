@@ -32,8 +32,8 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
         return charRegex.matches(string)
     }
 
-    fun mobileLogin() {
-        repository.mobileLogin()
+    fun mobileLogin(mobilePhone: String) {
+        repository.mobileLogin(mobilePhone)
     }
 
     fun sendSms() {

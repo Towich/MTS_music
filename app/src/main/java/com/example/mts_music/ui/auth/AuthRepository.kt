@@ -7,8 +7,12 @@ class AuthRepository {
     private val apiService by lazy {
         ApiService.create()
     }
-    fun mobileLogin() {
-
+    fun mobileLogin(phoneNumber: String) {
+        // val response = apiService.mobileLogin(phoneNumber)
+        // if(response == 200) {
+        //  return "access"
+        // }
+        // return "failure"
     }
 
 }
