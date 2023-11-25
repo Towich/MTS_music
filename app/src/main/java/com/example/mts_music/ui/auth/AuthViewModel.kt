@@ -1,6 +1,7 @@
 package com.example.mts_music.ui.auth
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.MainActivity
@@ -33,6 +34,11 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
 
     fun mobileLogin() {
         repository.mobileLogin()
+    }
+
+    fun sendSms() {
+//        context
+//        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
 
     class AuthViewModelFactory(private val context: Context, private val repository: AuthRepository) :

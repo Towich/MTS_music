@@ -56,9 +56,7 @@ import com.example.mts_music.ui.theme.Blue_4D
 fun AuthScreen(
     navController: NavController,
     context: Context,
-    application: App = context.applicationContext as App,
-    repository: AuthRepository = application.authRepository,
-    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(context, repository))
+    viewModel: AuthViewModel
 ) {
     val sheetStateSetNumber = rememberModalBottomSheetState(
        skipPartiallyExpanded = true
@@ -302,9 +300,8 @@ fun AuthScreen(
                                 // we expect from back new SMS
 
                                 // if SMS has sent
-                                Toast
-                                    .makeText(context, "СМС отправлено!", Toast.LENGTH_SHORT)
-                                    .show()
+                                viewModel.sendSms()
+
                             }
                     )
 
