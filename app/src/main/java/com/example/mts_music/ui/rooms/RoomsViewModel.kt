@@ -1,10 +1,12 @@
 package com.example.mts_music.ui.rooms
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.User
 import com.example.mts_music.ui.room.RoomRepository
+import com.example.mts_music.ui.room.RoomViewModel
 
 class RoomsViewModel(context: Context, private val repository: RoomRepository): ViewModel() {
     val rooms: List<Room> = listOf(
@@ -45,4 +47,12 @@ class RoomsViewModel(context: Context, private val repository: RoomRepository): 
             access = 1
         ),
     )
+
+    fun setCurrentRoom(newRoom: Room) = repository.setCurrentRoom(newRoom)
+
+    class RoomsViewModelFactory(private val context: Context, private val repository: RoomRepository) :
+        ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = RoomsViewModel(context, repository) as T
+    }
+
 }
