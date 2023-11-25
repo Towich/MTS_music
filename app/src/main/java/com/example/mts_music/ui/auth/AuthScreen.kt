@@ -1,5 +1,7 @@
 package com.example.mts_music.ui.auth
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +25,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,11 +44,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mts_music.R
+import com.example.mts_music.navigation.NavigationRouter
+import com.example.mts_music.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(
     navController: NavController,
+    context: Context,
     viewModel: AuthViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
 
@@ -158,7 +165,11 @@ fun AuthScreen(
                         singleLine = true,
                         modifier = Modifier
                             .padding(top = 30.dp)
-                            .fillMaxWidth()
+                            .fillMaxWidth(),
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.secondary
+                        )
                     )
 
                     if(showIncorrectPhone){
@@ -173,6 +184,7 @@ fun AuthScreen(
                             if(viewModel.isPhoneCorrect(numberText)){
                                 showSetNumberBottomSheet = false
                                 showGetSmsBottomSheet = true
+                                viewModel.setPhoneNumber(numberText)
                             }
                             else{
                                 showIncorrectPhone = true
@@ -226,7 +238,7 @@ fun AuthScreen(
                     )
 
                     Text(
-                        text = "Мы отправили его на\n",
+                        text = "Мы отправили его на\n${viewModel.getPhoneNumber()}",
                         fontSize = 20.sp,
                         modifier = Modifier
                             .padding(top = 15.dp)
@@ -240,7 +252,18 @@ fun AuthScreen(
                             if(viewModel.isDigits(it) && it.length <= 5){
                                 smsText = it
                             }
-                        }
+                            if(it.length == 5){
+                                // here check for correct SMS
+                                // and navigate to ProfileScreen
+                                val screenToTransfer = Screen.ProfileScreen
+                                NavigationRouter.currentScreen.value = screenToTransfer
+                                navController.navigate(screenToTransfer.route){
+                                    popUpTo(0)
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(top = 30.dp)
                     )
                 }
             }
@@ -261,7 +284,7 @@ fun PrimaryButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = backgroundColor
         ),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(15.dp),
         modifier = modifier
 
     ) {
@@ -285,10 +308,12 @@ fun PrimaryButton(
 private fun DuckieTextField(
     text: String,
     onTextChanged: (String) -> Unit,
+    modifier: Modifier
 ) {
     BasicTextField(
         value = text,
         onValueChange = onTextChanged,
+        modifier = modifier,
         decorationBox = {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 text.forEachIndexed { index, char ->
@@ -305,6 +330,7 @@ private fun DuckieTextField(
                 }
             }
         },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
     )
 }
 
@@ -315,15 +341,16 @@ private fun DuckieTextFieldCharContainer(
     isFocused: Boolean,
 ) {
     val shape = remember { RoundedCornerShape(4.dp) }
+    val configuration = LocalConfiguration.current
 
     Box(
         modifier = modifier
             .size(
-                width = 58.dp,
+                width = (configuration.screenWidthDp.dp - 60.dp - 32.dp) / 5,
                 height = 80.dp,
             )
             .background(
-                color = Color(0xFFF6F6F6),
+                color = MaterialTheme.colorScheme.secondary,
                 shape = shape,
             )
             .border(

@@ -3,16 +3,16 @@ package com.example.mts_music
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.mts_music.navigation.Navigation
+import com.example.mts_music.navigation.NavigationRouter
+import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.theme.MTS_musicTheme
+import com.example.mts_music.ui.bottomNavigation.CustomBottomNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +21,27 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             MTS_musicTheme {
-                Navigation(
-                    navController = navController,
-                    context = applicationContext
-                )
+                Scaffold(
+                    bottomBar = {
+                        when (NavigationRouter.currentScreen.value) {
+                            Screen.AuthorizationScreen -> null
+                            else -> {
+                                CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
+                                    if (screen.route != NavigationRouter.currentScreen.value.route) {
+                                        NavigationRouter.currentScreen.value = screen
+                                        navController.navigate(screen.route)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ) { contentPadding ->
+                    run {
+                        Box(modifier = Modifier.padding(contentPadding)) {
+                            Navigation(navController, applicationContext)
+                        }
+                    }
+                }
             }
         }
     }
