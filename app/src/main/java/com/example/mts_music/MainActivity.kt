@@ -3,6 +3,7 @@ package com.example.mts_music
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -26,17 +27,16 @@ class MainActivity : ComponentActivity() {
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
 
-//        val deepLink = "https://mts_room.com/room_screen/$roomId?token=$token"
-
         if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
             val path: String? = appLinkData.path
 
             if (path != null && path.contains("room_screen")) {
                 val token: String? = appLinkData.getQueryParameter("token")
+                val id: String? = appLinkData.getQueryParameter("id")
+//                Log.i("DataURLRoom", "Data: $token, $id")
                 if (!token.isNullOrEmpty() && app.roomRepository.isTokenValid(token)) {
                     flagStart = true
                 }
-
 //                NavigationRouter.currentScreen.value = Screen.RoomScreen
             }
         }
