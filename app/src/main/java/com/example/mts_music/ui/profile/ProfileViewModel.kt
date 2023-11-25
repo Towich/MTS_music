@@ -3,12 +3,15 @@ package com.example.mts_music.ui.profile
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.mts_music.SharedPreferences
 import com.example.mts_music.ui.room.RoomRepository
+import kotlinx.coroutines.launch
 
-class ProfileViewModel(context: Context, private val repository: RoomRepository) : ViewModel() {
+class ProfileViewModel(context: Context, private val repository: RoomRepository, private val profileRepository: ProfileRepository) : ViewModel() {
 
     private var username = ""
-    
+    val sharedPreference: SharedPreferences = SharedPreferences(context = context)
 
     fun getUsername(): String {
         return username
@@ -23,12 +26,13 @@ class ProfileViewModel(context: Context, private val repository: RoomRepository)
         return true
     }
 
-    fun exitFromAccount(){
-
+    fun exitFromAccount() = viewModelScope.launch {
+        sharedPreference.clearSharedPreference()
     }
 
-    class ProfileViewModelFactory(private val context: Context, private val repository: RoomRepository) :
+
+    class ProfileViewModelFactory(private val context: Context, private val repository: RoomRepository, private val profileRepository: ProfileRepository) :
         ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = ProfileViewModel(context, repository) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = ProfileViewModel(context, repository, profileRepository) as T
     }
 }
