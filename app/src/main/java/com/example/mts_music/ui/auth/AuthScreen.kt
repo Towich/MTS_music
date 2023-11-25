@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
@@ -52,9 +53,8 @@ import com.example.mts_music.navigation.Screen
 fun AuthScreen(
     navController: NavController,
     context: Context,
-    viewModel: AuthViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: AuthViewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(context))
 ) {
-
     val sheetStateSetNumber = rememberModalBottomSheetState(
        skipPartiallyExpanded = true
     )
@@ -185,6 +185,7 @@ fun AuthScreen(
                                 showSetNumberBottomSheet = false
                                 showGetSmsBottomSheet = true
                                 viewModel.setPhoneNumber(numberText)
+                                viewModel.mobileLogin()
                             }
                             else{
                                 showIncorrectPhone = true
