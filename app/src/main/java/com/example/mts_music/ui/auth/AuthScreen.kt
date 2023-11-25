@@ -29,9 +29,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,6 +52,9 @@ import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.theme.Blue_4D
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,6 +72,8 @@ fun AuthScreen(
             it != SheetValue.Hidden
         }
     )
+
+    val scope = rememberCoroutineScope()
 
     var showSetNumberBottomSheet by remember { mutableStateOf(false) }
     var showGetSmsBottomSheet by remember { mutableStateOf(false) }
@@ -188,7 +195,9 @@ fun AuthScreen(
                                 showSetNumberBottomSheet = false
                                 showGetSmsBottomSheet = true
                                 viewModel.setPhoneNumber(numberText)
-                                viewModel.mobileLogin(numberText)
+                                scope.launch(Dispatchers.IO) {
+                                    Toast.makeText(context, viewModel.mobileLogin(numberText), Toast.LENGTH_SHORT).show()
+                                }
                             }
                             else{
                                 showIncorrectPhone = true
@@ -261,9 +270,11 @@ fun AuthScreen(
                                 showIncorrectSMS = false
                             }
                             if(it.length == 5){
-                                // here checking for correct SMS
-                                // and navigate to ProfileScreen if success
-                                // TODO
+                                //метод для отправки кода на бэк
+                                scope.launch(Dispatchers.IO) {
+                                    viewModel.smsLogin(it)
+                                }
+
                                 if(it == "00000"){
                                     val screenToTransfer = Screen.ProfileScreen
                                     NavigationRouter.currentScreen.value = screenToTransfer

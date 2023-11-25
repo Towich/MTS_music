@@ -16,6 +16,9 @@ import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.Logger
 
 interface ApiService {
+    abstract fun mobileLogin(phoneNumber: String): Int
+    abstract fun smsLogin(code: String): Int
+    abstract fun sendSms(): Int
 
     companion object {
         fun create(): ApiServiceImpl {

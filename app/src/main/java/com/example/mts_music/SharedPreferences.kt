@@ -7,11 +7,11 @@ class SharedPreferences(var context: Context) {
     private val PREFS_NAME = "UserData"
     private val sharedPref: SharedPreferences? = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun saveString(KEY_NAME: String, value: Int) {
+    fun saveString(KEY_NAME: String, value: String) {
         val editor: SharedPreferences.Editor? = sharedPref?.edit()
 
         if (editor != null) {
-            editor.putInt(KEY_NAME, value)
+            editor.putString(KEY_NAME, value)
             editor.apply()
         }
     }
