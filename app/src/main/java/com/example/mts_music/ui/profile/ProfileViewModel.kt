@@ -18,4 +18,8 @@ class ProfileViewModel : ViewModel() {
         if (username.isEmpty()) return false
         return true
     }
+
+    fun exitFromAccount(){
+
+    }
 }

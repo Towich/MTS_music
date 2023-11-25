@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         when (NavigationRouter.currentScreen.value) {
-                            Screen.AuthorizationScreen -> null
+                            Screen.AuthorizationScreen, Screen.RoomScreen -> null
                             else -> {
                                 CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                     if (screen.route != NavigationRouter.currentScreen.value.route) {
