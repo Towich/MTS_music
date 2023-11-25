@@ -41,6 +41,10 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // TODO: Изменить конец на Screen.AuthorizationScreen
+        val startScreen = if (flagStart) Screen.RoomScreen else Screen.AuthorizationScreen
+        Constants.startScreen = startScreen
+
         setContent {
             val navController = rememberNavController()
 
@@ -62,7 +66,6 @@ class MainActivity : ComponentActivity() {
                 ) { contentPadding ->
                     run {
                         Box(modifier = Modifier.padding(contentPadding)) {
-                            val startScreen = if (flagStart) Screen.RoomScreen else Screen.AuthorizationScreen
                             Navigation(app, navController, applicationContext, startScreen)
                         }
                     }

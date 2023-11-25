@@ -142,7 +142,8 @@ fun AuthScreen(
                 },
                 sheetState = sheetStateSetNumber,
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                containerColor = Color.White
             ) {
                 var showIncorrectPhone by remember {
                     mutableStateOf(false)
@@ -208,7 +209,7 @@ fun AuthScreen(
                                 showGetSmsBottomSheet = true
                                 viewModel.setPhoneNumber(numberText)
                                 scope.launch(Dispatchers.IO) {
-                                    Toast.makeText(context, viewModel.mobileLogin(numberText), Toast.LENGTH_SHORT).show()
+//                                    Toast.makeText(context, viewModel.mobileLogin(numberText), Toast.LENGTH_SHORT).show()
                                 }
                             }
                             else{
@@ -231,7 +232,8 @@ fun AuthScreen(
                 },
                 sheetState = sheetStateGetSms,
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                containerColor = Color.White
             ) {
 
                 var showIncorrectSMS by remember { mutableStateOf(false) }

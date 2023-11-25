@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -27,7 +28,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = White_F2,
     onSecondary = Black_1E,
     tertiary = Gray_66,
-    onTertiary = Orange
+    onTertiary = Orange,
+    background = Color.White
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
