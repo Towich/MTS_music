@@ -1,5 +1,7 @@
 package com.example.mts_music
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +19,19 @@ import com.example.mts_music.ui.bottomNavigation.CustomBottomNavigation
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val appLinkAction: String? = intent.action
+        val appLinkData: Uri? = intent.data
+
+        if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+            val path: String? = appLinkData.path
+
+            // Пока нет проверки на токен
+            if (path != null && path.contains("room_screen")) {
+                NavigationRouter.currentScreen.value = Screen.RoomScreen
+            }
+        }
+
         setContent {
             val navController = rememberNavController()
 
