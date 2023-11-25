@@ -23,7 +23,9 @@ import com.example.mts_music.ui.profile.ProfileScreen
 import com.example.mts_music.ui.profile.ProfileViewModel
 import com.example.mts_music.ui.room.RoomRepository
 import com.example.mts_music.ui.room.RoomScreen
+import com.example.mts_music.ui.room.RoomViewModel
 import com.example.mts_music.ui.rooms.RoomsScreen
+import com.example.mts_music.ui.rooms.RoomsViewModel
 
 object NavigationRouter {
     var currentScreen: MutableState<Screen> = mutableStateOf(Constants.startScreen)
@@ -57,12 +59,19 @@ fun Navigation(navController: NavHostController, context: Context) {
         composable(
             route = Screen.RoomsScreen.route
         ) {
-            RoomsScreen(navController = navController)
+            RoomsScreen(
+                navController = navController,
+                mViewModel = viewModel(factory = RoomsViewModel.RoomsViewModelFactory(context, app.roomRepository))
+            )
         }
         composable(
             route = Screen.RoomScreen.route
         ) {
-            RoomScreen(navController = navController)
+            RoomScreen(
+                navController = navController,
+                context = context,
+                mViewModel = viewModel(factory = RoomViewModel.RoomViewModelFactory(context, app.roomRepository))
+            )
         }
     }
 }
