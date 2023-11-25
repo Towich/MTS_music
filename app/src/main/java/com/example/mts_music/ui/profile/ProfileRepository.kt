@@ -8,5 +8,4 @@ class ProfileRepository {
         ApiService.create()
     }
 
-
 }
