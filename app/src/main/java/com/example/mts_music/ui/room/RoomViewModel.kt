@@ -7,7 +7,6 @@ import androidmads.library.qrgenearator.QRGEncoder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.data.Room
-import com.example.mts_music.ui.rooms.RoomsViewModel
 
 class RoomViewModel(context: Context, private val repository: RoomRepository): ViewModel() {
 
