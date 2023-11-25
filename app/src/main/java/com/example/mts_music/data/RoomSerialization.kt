@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class RoomSerialization(
     val roomName: String,
     val numberOfUsers: Int,
-    val users: List<User>
+    val users: List<UserSerialization>
 )
