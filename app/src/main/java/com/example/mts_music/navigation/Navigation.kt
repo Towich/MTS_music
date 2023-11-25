@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import com.example.mts_music.Constants
 import com.example.mts_music.ui.auth.AuthScreen
 import com.example.mts_music.ui.profile.ProfileScreen
+import com.example.mts_music.ui.room.RoomScreen
 import com.example.mts_music.ui.rooms.RoomsScreen
 
 object NavigationRouter {
@@ -43,6 +44,11 @@ fun Navigation(navController: NavHostController, context: Context) {
             route = Screen.RoomsScreen.route
         ) {
             RoomsScreen(navController = navController)
+        }
+        composable(
+            route = Screen.RoomScreen.route
+        ) {
+            RoomScreen(navController = navController)
         }
     }
 }

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,7 @@ import androidx.navigation.NavController
 import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
+import com.example.mts_music.ui.theme.Blue_4D
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,6 +69,10 @@ fun AuthScreen(
 
     var showSetNumberBottomSheet by remember { mutableStateOf(false) }
     var showGetSmsBottomSheet by remember { mutableStateOf(false) }
+
+    var numberText by remember {
+        mutableStateOf("+79")
+    }
 
     Column(
         modifier = Modifier
@@ -120,10 +126,6 @@ fun AuthScreen(
             ) {
                 var showIncorrectPhone by remember {
                     mutableStateOf(false)
-                }
-
-                var numberText by remember {
-                    mutableStateOf("+79")
                 }
 
                 Column(
@@ -209,6 +211,9 @@ fun AuthScreen(
                 modifier = Modifier
                     .fillMaxHeight()
             ) {
+
+                var showIncorrectSMS by remember { mutableStateOf(false) }
+
                 Column(
                     modifier = Modifier
                         .padding(start = 30.dp, end = 30.dp)
@@ -250,21 +255,68 @@ fun AuthScreen(
                     DuckieTextField(
                         text = smsText,
                         onTextChanged = {
-                            if(viewModel.isDigits(it) && it.length <= 5){
+                            if(it.isEmpty() || viewModel.isDigits(it) && it.length <= 5){
                                 smsText = it
+                                showIncorrectSMS = false
                             }
                             if(it.length == 5){
-                                // here check for correct SMS
-                                // and navigate to ProfileScreen
-                                val screenToTransfer = Screen.ProfileScreen
-                                NavigationRouter.currentScreen.value = screenToTransfer
-                                navController.navigate(screenToTransfer.route){
-                                    popUpTo(0)
+                                // here checking for correct SMS
+                                // and navigate to ProfileScreen if success
+                                // TODO
+                                if(it == "00000"){
+                                    val screenToTransfer = Screen.ProfileScreen
+                                    NavigationRouter.currentScreen.value = screenToTransfer
+                                    navController.navigate(screenToTransfer.route){
+                                        popUpTo(0)
+                                    }
+                                }
+                                else{
+                                    showIncorrectSMS = true
                                 }
                             }
                         },
                         modifier = Modifier
                             .padding(top = 30.dp)
+                    )
+
+                    if(showIncorrectSMS){
+                        Text(
+                            text = "Неверный код",
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier
+                                .padding(top = 10.dp)
+                        )
+                    }
+
+                    Text(
+                        text = "Отправить код повторно",
+                        fontSize = 24.sp,
+                        color = Blue_4D,
+                        modifier = Modifier
+                            .padding(top = 30.dp)
+                            .clickable {
+                                // send request to backend
+                                // we expect from back new SMS
+
+                                // if SMS has sent
+                                Toast
+                                    .makeText(context, "СМС отправлено!", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                    )
+
+                    Text(
+                        text = "Войти с другим номером",
+                        fontSize = 24.sp,
+                        color = Blue_4D,
+                        modifier = Modifier
+                            .padding(top = 30.dp)
+                            .clickable {
+                                viewModel.setPhoneNumber("")
+                                showGetSmsBottomSheet = false
+                                numberText = "+79"
+                                showSetNumberBottomSheet = true
+                            }
                     )
                 }
             }

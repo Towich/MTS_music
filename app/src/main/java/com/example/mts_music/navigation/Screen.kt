@@ -17,8 +17,14 @@ sealed class Screen(val route : String, val title : String, val icon: Int) {
     )
 
     object RoomsScreen : Screen(
-        route = "room_screen",
+        route = "rooms_screen",
         title = "Комнаты",
+        icon = R.drawable.rooms_icon
+    )
+
+    object RoomScreen : Screen(
+        route = "room_screen",
+        title = "Комната",
         icon = R.drawable.rooms_icon
     )
 
