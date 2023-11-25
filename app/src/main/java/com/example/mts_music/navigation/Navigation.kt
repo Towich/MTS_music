@@ -51,7 +51,8 @@ fun Navigation(navController: NavHostController, context: Context) {
         ) {
             ProfileScreen(
                 navController = navController,
-                viewModel = viewModel(factory = ProfileViewModel.ProfileViewModelFactory(context, app.roomRepository))
+                viewModel = viewModel(factory = ProfileViewModel.ProfileViewModelFactory(context, app.roomRepository,
+                    app.profileRepository))
             )
         }
         composable(
