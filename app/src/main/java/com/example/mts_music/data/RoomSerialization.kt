@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RoomSerialization(
+    val id: String,
     val roomName: String,
     val playingAudio: String,
     val authorAudio: String = "error",
