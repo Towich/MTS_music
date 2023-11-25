@@ -15,13 +15,13 @@ import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.bottomNavigation.CustomBottomNavigation
 import com.example.mts_music.ui.theme.MTS_musicTheme
-import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val app = applicationContext as App
+        var flagStart = false
 
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
@@ -33,11 +33,11 @@ class MainActivity : ComponentActivity() {
 
             if (path != null && path.contains("room_screen")) {
                 val token: String? = appLinkData.getQueryParameter("token")
-                if (!token.isNullOrEmpty()) {
-                    app.roomRepository.isTokenValid(token)
+                if (!token.isNullOrEmpty() && app.roomRepository.isTokenValid(token)) {
+                    flagStart = true
                 }
 
-                NavigationRouter.currentScreen.value = Screen.RoomScreen
+//                NavigationRouter.currentScreen.value = Screen.RoomScreen
             }
         }
 
@@ -62,7 +62,8 @@ class MainActivity : ComponentActivity() {
                 ) { contentPadding ->
                     run {
                         Box(modifier = Modifier.padding(contentPadding)) {
-                            Navigation(app, navController, applicationContext)
+                            val startScreen = if (flagStart) Screen.RoomScreen else Screen.AuthorizationScreen
+                            Navigation(app, navController, applicationContext, startScreen)
                         }
                     }
                 }

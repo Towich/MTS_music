@@ -32,11 +32,11 @@ object NavigationRouter {
 }
 
 @Composable
-fun Navigation(app: App, navController: NavHostController, context: Context) {
+fun Navigation(app: App, navController: NavHostController, context: Context, startScreen: Screen) {
 
     NavHost(
         navController = navController,
-        startDestination = Constants.startScreen.route,
+        startDestination = startScreen.route,
     ) {
         composable(
             route = Screen.AuthorizationScreen.route
