@@ -1,6 +1,9 @@
 package com.example.mts_music.data
 
-data class User(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class UserSerialization(
     val phoneNumber: String,
     val username: String,
     val sms: String
