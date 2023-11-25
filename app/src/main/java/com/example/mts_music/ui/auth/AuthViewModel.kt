@@ -3,10 +3,10 @@ package com.example.mts_music.ui.auth
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mts_music.MainActivity
+import com.example.mts_music.Constants.PHONENUMBER
 import com.example.mts_music.SharedPreferences
 
-class AuthViewModel(context: Context) : ViewModel() {
+class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
 
     private var phoneNumber = ""
     val sharedPreference: SharedPreferences =SharedPreferences(context = context)
@@ -31,12 +31,26 @@ class AuthViewModel(context: Context) : ViewModel() {
         return charRegex.matches(string)
     }
 
-    fun mobileLogin() {
-
+    suspend fun mobileLogin(mobilePhone: String): String {
+        val response = repository.mobileLogin(mobilePhone)
+        return response
     }
 
-    class AuthViewModelFactory(private val context: Context) :
+    fun sendSms() {
+        repository.sendSms()
+//        context
+//        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
+    }
+
+    suspend fun smsLogin(code: String) {
+        val response = repository.smsLogin(code)
+        if(response == "success") {
+            sharedPreference.saveString(PHONENUMBER, getPhoneNumber())
+        }
+    }
+
+    class AuthViewModelFactory(private val context: Context, private val repository: AuthRepository) :
         ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = AuthViewModel(context) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = AuthViewModel(context, repository) as T
     }
 }

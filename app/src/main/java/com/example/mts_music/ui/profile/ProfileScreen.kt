@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mts_music.R
+import com.example.mts_music.ui.auth.AuthRepository
 import com.example.mts_music.ui.auth.PrimaryButton
 import com.example.mts_music.ui.theme.Black_1E
 import com.example.mts_music.ui.theme.Orange
@@ -47,7 +48,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ProfileScreen(
     navController: NavController,
-    viewModel: ProfileViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: ProfileViewModel
 ) {
     var usernameText by remember { mutableStateOf(viewModel.getUsername()) }
     var showUsernameErrorText by remember { mutableStateOf(false) }

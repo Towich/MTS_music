@@ -11,12 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.mts_music.App
 import com.example.mts_music.Constants
 import com.example.mts_music.ui.auth.AuthScreen
+import com.example.mts_music.ui.auth.AuthViewModel
 import com.example.mts_music.ui.profile.ProfileScreen
+import com.example.mts_music.ui.profile.ProfileViewModel
+import com.example.mts_music.ui.room.RoomRepository
 import com.example.mts_music.ui.room.RoomScreen
 import com.example.mts_music.ui.rooms.RoomsScreen
 
@@ -26,6 +31,8 @@ object NavigationRouter {
 
 @Composable
 fun Navigation(navController: NavHostController, context: Context) {
+    val app = context.applicationContext as App
+
     NavHost(
         navController = navController,
         startDestination = Constants.startScreen.route,
@@ -33,12 +40,19 @@ fun Navigation(navController: NavHostController, context: Context) {
         composable(
             route = Screen.AuthorizationScreen.route
         ) {
-            AuthScreen(navController = navController, context = context)
+            AuthScreen(
+                navController = navController,
+                context = context,
+                viewModel = viewModel(factory = AuthViewModel.AuthViewModelFactory(context, app.authRepository))
+            )
         }
         composable(
             route = Screen.ProfileScreen.route
         ) {
-            ProfileScreen(navController = navController)
+            ProfileScreen(
+                navController = navController,
+                viewModel = viewModel(factory = ProfileViewModel.ProfileViewModelFactory(context, app.roomRepository))
+            )
         }
         composable(
             route = Screen.RoomsScreen.route

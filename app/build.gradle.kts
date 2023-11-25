@@ -70,6 +70,9 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
     implementation("io.ktor:ktor-client-logging:2.3.5")
 
+    //QR-code generator
+    implementation("com.github.androidmads:QRGenerator:1.0.1")
+
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

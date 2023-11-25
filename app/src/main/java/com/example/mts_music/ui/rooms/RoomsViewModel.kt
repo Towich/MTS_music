@@ -1,5 +1,8 @@
 package com.example.mts_music.ui.rooms
 
+import android.util.Log
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
 import androidx.lifecycle.ViewModel
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.User
@@ -42,4 +45,15 @@ class RoomsViewModel: ViewModel() {
             access = 1
         ),
     )
+
+    private fun generateQrCode(text: String) {
+        val qrGenerator = QRGEncoder(text, null, QRGContents.Type.TEXT, 400)
+        try {
+            val bitMap = qrGenerator.bitmap
+            //imageView.setImageBitmap(bitMap)
+
+        }catch (e:Exception) {
+            Log.v("exception with QR-code", e.toString())
+        }
+    }
 }
