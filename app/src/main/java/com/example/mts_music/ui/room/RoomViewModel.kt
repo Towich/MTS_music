@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mts_music.data.Room
 
-class RoomViewModel(context: Context, private val repository: RoomRepository): ViewModel() {
+class RoomViewModel(context: Context, private val repository: RoomRepository) : ViewModel() {
 
     fun getCurrentRoom(): Room {
         return repository.getCurrentRoom() ?: Room()
@@ -21,15 +21,29 @@ class RoomViewModel(context: Context, private val repository: RoomRepository): V
             val bitMap = qrGenerator.bitmap
             //imageView.setImageBitmap(bitMap)
 
-        }catch (e:Exception) {
+        } catch (e: Exception) {
             Log.v("exception with QR-code", e.toString())
         }
     }
 
     fun getMediaPlayer(): MediaPlayer = repository.getMediaPlayer()
 
-    class RoomViewModelFactory(private val context: Context, private val repository: RoomRepository) :
+    fun generateDeepLink(): String {
+        val currentRoom = getCurrentRoom()
+        val mockId = "123456" // Замените на реальный идентификатор комнаты
+        val mockToken = "abc123" // Замените на реальный токен
+        if (currentRoom.id.isNotEmpty() && currentRoom.roomToken.isNotEmpty()) {
+            return "https://mtsroom.com/room_screen?id=${mockId}&token=${mockToken}"
+        }
+        return ""
+    }
+
+    class RoomViewModelFactory(
+        private val context: Context,
+        private val repository: RoomRepository
+    ) :
         ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = RoomViewModel(context, repository) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T =
+            RoomViewModel(context, repository) as T
     }
 }
