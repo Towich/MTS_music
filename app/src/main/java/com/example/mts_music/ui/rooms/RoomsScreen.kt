@@ -71,7 +71,7 @@ fun RoomCard(
 ) {
     Card(
         modifier = Modifier
-            .padding(start = 10.dp, end = 10.dp, top = 15.dp)
+            .padding(start = 10.dp, end = 10.dp, bottom = 15.dp)
             .height(150.dp)
             .clickable { /* TODO */ },
         colors = CardDefaults.cardColors(

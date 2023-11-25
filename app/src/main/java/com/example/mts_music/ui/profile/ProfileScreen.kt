@@ -2,43 +2,70 @@ package com.example.mts_music.ui.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mts_music.R
 import com.example.mts_music.ui.auth.PrimaryButton
+import com.example.mts_music.ui.theme.Black_1E
+import com.example.mts_music.ui.theme.Orange
+import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
-){
-    var usernameText by remember { mutableStateOf("") }
+) {
+    var usernameText by remember { mutableStateOf(viewModel.getUsername()) }
     var showUsernameErrorText by remember { mutableStateOf(false) }
+    var hasChangesInUsername by remember { mutableStateOf(false) }
+    var showExitFromAccountBottomSheet by remember { mutableStateOf(false) }
+
+    val sheetStateExitFromAccount = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = {
+            it != SheetValue.Expanded
+        }
+    )
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .padding(start = 30.dp, top = 30.dp, end = 30.dp)
-    ){
+    ) {
         Text(
             text = "Профиль",
             style = MaterialTheme.typography.displayMedium
@@ -57,6 +84,7 @@ fun ProfileScreen(
             onValueChange = { newText ->
                 usernameText = newText
                 showUsernameErrorText = usernameText.isEmpty()
+                hasChangesInUsername = true
             },
             singleLine = true,
             modifier = Modifier
@@ -69,7 +97,7 @@ fun ProfileScreen(
             )
         )
 
-        if(showUsernameErrorText){
+        if (showUsernameErrorText) {
             Text(
                 text = "Поле не может быть пустым!",
                 color = MaterialTheme.colorScheme.primary,
@@ -82,7 +110,7 @@ fun ProfileScreen(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(top = 35.dp)
-        ){
+        ) {
             Text(
                 text = "Телефон",
                 style = MaterialTheme.typography.titleLarge,
@@ -115,23 +143,89 @@ fun ProfileScreen(
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondary
             )
         )
-        
-        PrimaryButton(
-            onClick = { /*TODO*/ },
-            text = "Сохранить",
-            backgroundColor = MaterialTheme.colorScheme.primary,
-            textColor = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier
-                .padding(top = 40.dp)
-        )
+
+        if (hasChangesInUsername) {
+            PrimaryButton(
+                onClick = {
+                    viewModel.setUsername(usernameText)
+                },
+                text = "Сохранить",
+                backgroundColor = MaterialTheme.colorScheme.primary,
+                textColor = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier
+                    .padding(top = 40.dp)
+            )
+        }
 
         PrimaryButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                showExitFromAccountBottomSheet = true
+            },
             text = "Выйти",
             backgroundColor = MaterialTheme.colorScheme.secondary,
             textColor = MaterialTheme.colorScheme.onTertiary,
             modifier = Modifier
                 .padding(top = 40.dp)
         )
+
+        if (showExitFromAccountBottomSheet) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    scope.launch { sheetStateExitFromAccount.hide() }.invokeOnCompletion {
+                        if(!sheetStateExitFromAccount.isVisible){
+                            showExitFromAccountBottomSheet = false
+                        }
+                    }
+                },
+                sheetState = sheetStateExitFromAccount,
+                modifier = Modifier
+                    .height(400.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 30.dp, end = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Точно выйти?",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Вы не сможете заходить в комнаты и синхронно прослушивать музыку с другими участниками",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Normal,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .padding(top = 15.dp),
+                    )
+
+                    PrimaryButton(
+                        onClick = {
+                            scope.launch { sheetStateExitFromAccount.hide() }.invokeOnCompletion {
+                                if(!sheetStateExitFromAccount.isVisible){
+                                    showExitFromAccountBottomSheet = false
+                                }
+                            }
+                        },
+                        text = "Остаться",
+                        backgroundColor = Black_1E,
+                        textColor = Color.White,
+                        modifier = Modifier
+                            .padding(top = 30.dp)
+                    )
+
+                    PrimaryButton(
+                        onClick = { /*TODO*/ },
+                        text = "Выйти",
+                        backgroundColor = MaterialTheme.colorScheme.secondary,
+                        textColor = Orange,
+                        modifier = Modifier
+                            .padding(top = 15.dp)
+                    )
+                }
+            }
+        }
     }
 }
