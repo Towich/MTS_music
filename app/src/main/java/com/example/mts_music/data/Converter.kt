@@ -1,21 +1,37 @@
 package com.example.mts_music.data
 
 class Converter {
-//    private val json = Json { encodeDefaults = true }
 
-    fun convertUserToUserSerialization(user: User): UserSerialization {
-        return UserSerialization(user.phoneNumber, user.username, user.sms)
+    // User
+    private fun convertUserToUserSerialization(user: User): UserSerialization {
+        return UserSerialization(user.phoneNumber, user.username)
     }
 
-//    fun convertUserSerializationToJson(user: UserSerialization): String {
-//        return json.encodeToString(user)
-//    }
+    private fun convertUserSerializationToUser(user: UserSerialization): User {
+        return User(user.phoneNumber, user.username)
+    }
 
-//    fun convertJsonToUserSerialization(jsonString: String): UserSerialization {
-//        return json.decodeFromString<UserSerialization>(jsonString)
-//    }
+    // Room
+    fun convertRoomToRoomSerialization(room: Room): RoomSerialization {
+        val usersSerialization = room.users.map {
+            convertUserToUserSerialization(it)
+        }
+        return RoomSerialization(room.author, usersSerialization, room.access)
+    }
 
-    fun convertUserSerializationToUser(user: UserSerialization): User {
-        return User(user.phoneNumber, user.username, user.sms)
+    fun convertRoomSerializationToRoom(room: RoomSerialization): Room {
+        val users = room.users.map {
+            convertUserSerializationToUser(it)
+        }
+        return Room(room.author, users, room.access)
+    }
+
+    // Code
+    fun convertCodeToCodeSerialization(code: Code): CodeSerialization {
+        return CodeSerialization(code.code)
+    }
+
+    fun convertCodeSerializationToCode(code: CodeSerialization): Code {
+        return Code(code.code)
     }
 }
