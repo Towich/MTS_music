@@ -4,12 +4,21 @@ class Converter {
 
     // User
     private fun convertUserToUserSerialization(user: User): UserSerialization {
-        return UserSerialization(user.phoneNumber, user.username)
+        return UserSerialization(user.id, user.phoneNumber, user.username)
     }
 
     private fun convertUserSerializationToUser(user: UserSerialization): User {
-        return User(user.phoneNumber, user.username)
+        return User(user.id, user.phoneNumber, user.username)
     }
+
+    private fun convertPhoneNumberToPhoneNumberSerialization(phoneNumber: PhoneNumber): PhoneNumberSerialization {
+        return PhoneNumberSerialization(phoneNumber.phoneNumber)
+    }
+
+    private fun convertPhoneNumberSerializationToPhoneNumber(phoneNumber: PhoneNumberSerialization): PhoneNumber {
+        return PhoneNumber(phoneNumber.phoneNumber)
+    }
+
 
     // Room
     fun convertRoomToRoomSerialization(room: Room): RoomSerialization {

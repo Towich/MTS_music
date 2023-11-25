@@ -8,6 +8,7 @@ import com.example.mts_music.data.Room
 
 class RoomRepository(private val context: Context){
     private var currentRoom: Room? = null
+
     private val apiService by lazy {
         ApiService.create()
     }

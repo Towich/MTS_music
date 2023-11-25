@@ -3,14 +3,17 @@ package com.example.mts_music.ui.auth
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.mts_music.Constants.ID
 import com.example.mts_music.Constants.PHONENUMBER
 import com.example.mts_music.Constants.USERNAME
 import com.example.mts_music.SharedPreferences
+import com.example.mts_music.data.Converter
 
 class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
 
     private var phoneNumber = ""
     val sharedPreference: SharedPreferences =SharedPreferences(context = context)
+    val converter = Converter()
 
     fun getPhoneNumber(): String {
         return phoneNumber
@@ -37,22 +40,25 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
         return response
     }
 
-    fun sendSms() {
+    suspend fun sendSms() {
         repository.sendSms()
 //        context
 //        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
 
     suspend fun smsLogin(code: String) {
-        val response = repository.smsLogin(code)
-        if(response == "success") {
+        val responseUser = repository.smsLogin(code)
+        if(responseUser != null) { //!!
             sharedPreference.saveString(PHONENUMBER, getPhoneNumber())
+            sharedPreference.saveInt(ID, responseUser.id)
+            sharedPreference.saveString(USERNAME, responseUser.username)
         }
     }
 
     fun checkAuthorization():Boolean {
         if(sharedPreference.getValueString(USERNAME)!= null &&
-            sharedPreference.getValueString(PHONENUMBER)!= null) {
+            sharedPreference.getValueString(PHONENUMBER)!= null &&
+            sharedPreference.getValueString(ID)!= null) {
             return true
         }
         return false

@@ -149,6 +149,7 @@ fun ProfileScreen(
             PrimaryButton(
                 onClick = {
                     viewModel.setUsername(usernameText)
+                    scope.launch { viewModel.sendUserNick(usernameText) }
                 },
                 text = "Сохранить",
                 backgroundColor = MaterialTheme.colorScheme.primary,

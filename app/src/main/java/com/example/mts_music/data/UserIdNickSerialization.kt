@@ -3,8 +3,7 @@ package com.example.mts_music.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserSerialization(
+data class UserIdNickSerialization (
     val id: Int,
-    val phoneNumber: String,
     val username: String,
 )

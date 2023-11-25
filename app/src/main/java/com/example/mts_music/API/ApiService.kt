@@ -1,6 +1,11 @@
 package com.example.mts_music.API
 
 import android.util.Log
+import com.example.mts_music.data.Code
+import com.example.mts_music.data.CodeSerialization
+import com.example.mts_music.data.PhoneNumber
+import com.example.mts_music.data.PhoneNumberSerialization
+import com.example.mts_music.data.UserSerialization
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.HttpTimeout
@@ -16,9 +21,10 @@ import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.Logger
 
 interface ApiService {
-    abstract fun mobileLogin(phoneNumber: String): Int
-    abstract fun smsLogin(code: String): Int
-    abstract fun sendSms(): Int
+    suspend fun mobileLogin(phoneNumber: PhoneNumberSerialization): Int
+    suspend fun smsLogin(code: CodeSerialization): UserSerialization
+    suspend fun sendSms(): Int
+    suspend fun sendUserNick(user: UserSerialization): Int
 
     companion object {
         fun create(): ApiServiceImpl {
