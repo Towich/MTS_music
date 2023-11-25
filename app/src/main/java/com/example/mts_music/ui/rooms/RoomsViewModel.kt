@@ -2,83 +2,39 @@ package com.example.mts_music.ui.rooms
 
 import androidx.lifecycle.ViewModel
 import com.example.mts_music.data.Room
+import com.example.mts_music.data.User
 
 class RoomsViewModel: ViewModel() {
     val rooms: List<Room> = listOf(
         Room(
             roomName = "Комната №1",
-            numberOfUsers = 2,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната Никиты Зозули",
-            numberOfUsers = 3,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната №2",
-            numberOfUsers = 1,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната Муси",
-            numberOfUsers = 5,
-            users = listOf()
+            author = "Мария",
+            users = listOf(User("+71234567890", "Мария"), User("+75678904637", "Никита"), User("+75647890329", "Иван")),
+            access = 1
         ),
         Room(
             roomName = "Комната МусиМисиМуси МУси МИссси Муси смсимисми",
-            numberOfUsers = 5,
-            users = listOf()
+            author = "Никита",
+            users = listOf(User("+75678904637", "Никита"), User("+75647890329", "Михаил")),
+            access = 1
         ),
         Room(
-            roomName = "Комната №143",
-            numberOfUsers = 2,
-            users = listOf()
+            roomName = "Комната Никиты",
+            author = "Никита",
+            users = listOf(User("+75678904637", "Никита")),
+            access = 1
         ),
         Room(
-            roomName = "Комната Никиgfdты Зозули",
-            numberOfUsers = 3,
-            users = listOf()
+            roomName = "Комната Муси",
+            author = "Иван",
+            users = listOf(User("+75678904637", "Иван"), User("+75647890329", "Мария")),
+            access = 1
         ),
         Room(
-            roomName = "Комната №2432",
-            numberOfUsers = 1,
-            users = listOf()
+            roomName = "Комната №254",
+            author = "Михаил",
+            users = listOf(User("+71234567890", "Мария"), User("+75678904637", "Никита"), User("+75647890329", "Иван")),
+            access = 1
         ),
-        Room(
-            roomName = "Комната Мусdfsи",
-            numberOfUsers = 5,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната Муси2МисиМуси МУси МИссси Муси смсимисми",
-            numberOfUsers = 5,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната №1fds",
-            numberOfUsers = 2,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната Ни23киты Зозули",
-            numberOfUsers = 3,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната №dfd2",
-            numberOfUsers = 1,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната Муvcvси",
-            numberOfUsers = 5,
-            users = listOf()
-        ),
-        Room(
-            roomName = "Комната МусиsaaМисиМуси МУси МИссси Муси смсимисми",
-            numberOfUsers = 5,
-            users = listOf()
-        )
     )
 }
