@@ -1,6 +1,7 @@
 package com.example.mts_music.API
 
 import android.util.Log
+import com.example.mts_music.API.ApiRoutes.MUSIC
 import com.example.mts_music.API.ApiRoutes.ROOMS
 import com.example.mts_music.data.CodeSerialization
 import com.example.mts_music.data.NewRoomSerialization
@@ -125,6 +126,20 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
             } else {
                 Log.d("smsLogin failed", response.body())
                 return  response.body()  //!!
+            }
+        } catch (ex: RedirectResponseException) {
+            throw Exception("Redirect error: ${ex.response.status.description}")
+        } catch (ex: ClientRequestException) {
+            throw Exception("Client request error: ${ex.response.status.description}")
+        } catch (ex: ServerResponseException) {
+            throw Exception("Server response error: ${ex.response.status.description}")
+        }
+    }
+
+    override suspend fun getMusic(room_id: String, user_id: String) {
+        try {
+            val response: HttpResponse = client.get {
+                url(ApiRoutes.BASE_URL + MUSIC + "/" + room_id + "/" + "1")
             }
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")

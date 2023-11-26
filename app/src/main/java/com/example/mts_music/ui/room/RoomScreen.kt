@@ -1,6 +1,5 @@
 package com.example.mts_music.ui.room
 
-import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.media.MediaPlayer
@@ -365,6 +364,10 @@ fun RoomScreen(
                 PrimaryButton(
                     onClick = {
                         // TODO: Connect to the room
+                        scope.launch {
+                            mViewModel.makeConnectByWebSocket()
+                            //mViewModel.getMoreMusic()
+                        }
                         isConnectButtonVisible = false
                     },
                     text = "Подключиться",

@@ -2,15 +2,21 @@ package com.example.mts_music.ui.room
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.media.MediaPlayer
 import android.util.Log
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
-import android.media.MediaPlayer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.mts_music.Constants.ID
+import com.example.mts_music.SharedPreferences
+import com.example.mts_music.WebSocketListener
 import com.example.mts_music.data.Room
+import okhttp3.OkHttpClient
+import okhttp3.WebSocket
 
 class RoomViewModel(context: Context, private val repository: RoomRepository) : ViewModel() {
+    val sharedPreference: SharedPreferences = SharedPreferences(context = context)
 
     fun getCurrentRoom(): Room {
         return repository.getCurrentRoom() ?: Room()
@@ -39,6 +45,24 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
 
     fun getConnectToExistRoom(): Boolean = repository.getConnectToExistRoom()
     fun getRoomIdToConnect(): String = repository.getRoomIdToConnect()
+
+    suspend fun getMoreMusic() {
+        Log.d("getCurrentRoom().id", getCurrentRoom().id)
+        Log.d("getCurrentRoom().name", getCurrentRoom().roomName)
+        repository.getMusic(getCurrentRoom().id, sharedPreference.getValueInt(ID).toString())
+    }
+
+    suspend fun makeConnectByWebSocket() {
+        val request: okhttp3.Request = okhttp3.Request.Builder()
+            .url("https://5f67-95-24-131-63.ngrok-free.app/connect/4")
+            .build()
+
+        val client = OkHttpClient()
+        val listener = WebSocketListener()
+        val ws: WebSocket = client.newWebSocket(request, listener)
+        repository.getMusic(getCurrentRoom().id,"4")
+
+    }
 
     class RoomViewModelFactory(
         private val context: Context,

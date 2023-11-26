@@ -1,7 +1,6 @@
 package com.example.mts_music.ui.room
 
 import android.content.Context
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.util.Log
 import com.example.mts_music.API.ApiService
@@ -66,6 +65,10 @@ class RoomRepository(private val context: Context) {
 
     suspend fun postNewRoom(user_id: Int, nameOfRoom:String, access: Int, token: String): NewRoomSerialization {
         return apiService.postNewRoom(RoomUserIdAccessNameSerialization(user_id, nameOfRoom, access, token))
+    }
+
+    suspend fun getMusic(room_id: String, user_id: String) {
+        apiService.getMusic(room_id, user_id)
     }
 
     private fun setMusicFromByteArray() {
