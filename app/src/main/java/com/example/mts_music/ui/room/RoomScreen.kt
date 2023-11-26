@@ -59,6 +59,7 @@ import androidx.navigation.NavController
 import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
+import com.example.mts_music.ui.auth.PrimaryButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -77,6 +78,8 @@ fun RoomScreen(
     var showBottomSheet by remember { mutableStateOf(false) }
     var uriInviteToRoom by remember { mutableStateOf("") }
     var uriQRCode: Bitmap? by remember { mutableStateOf(null) }
+
+    var isConnectButtonVisible by remember { mutableStateOf(true) }
 
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -357,6 +360,21 @@ fun RoomScreen(
                     }
                 }
             }
+
+            if(isConnectButtonVisible){
+                PrimaryButton(
+                    onClick = {
+                        // TODO: Connect to the room
+                        isConnectButtonVisible = false
+                    },
+                    text = "Подключиться",
+                    backgroundColor = MaterialTheme.colorScheme.primary,
+                    textColor = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(top = 50.dp)
+                )
+            }
+
         }
 
     }

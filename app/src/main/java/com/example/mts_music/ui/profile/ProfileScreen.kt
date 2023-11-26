@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mts_music.R
+import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.auth.AuthRepository
 import com.example.mts_music.ui.auth.PrimaryButton
 import com.example.mts_music.ui.theme.Black_1E
@@ -174,7 +175,7 @@ fun ProfileScreen(
             ModalBottomSheet(
                 onDismissRequest = {
                     scope.launch { sheetStateExitFromAccount.hide() }.invokeOnCompletion {
-                        if(!sheetStateExitFromAccount.isVisible){
+                        if (!sheetStateExitFromAccount.isVisible) {
                             showExitFromAccountBottomSheet = false
                         }
                     }
@@ -206,7 +207,7 @@ fun ProfileScreen(
                     PrimaryButton(
                         onClick = {
                             scope.launch { sheetStateExitFromAccount.hide() }.invokeOnCompletion {
-                                if(!sheetStateExitFromAccount.isVisible){
+                                if (!sheetStateExitFromAccount.isVisible) {
                                     showExitFromAccountBottomSheet = false
                                 }
                             }
@@ -220,7 +221,9 @@ fun ProfileScreen(
 
                     PrimaryButton(
                         onClick = {
-                                  viewModel.exitFromAccount() },
+                            navController.navigate(Screen.AuthorizationScreen.route)
+                            viewModel.exitFromAccount()
+                        },
                         text = "Выйти",
                         backgroundColor = MaterialTheme.colorScheme.secondary,
                         textColor = Orange,
