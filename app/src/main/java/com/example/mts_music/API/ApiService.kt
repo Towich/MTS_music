@@ -5,6 +5,7 @@ import com.example.mts_music.data.Code
 import com.example.mts_music.data.CodeSerialization
 import com.example.mts_music.data.PhoneNumber
 import com.example.mts_music.data.PhoneNumberSerialization
+import com.example.mts_music.data.Response
 import com.example.mts_music.data.UserSerialization
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -19,6 +20,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 import io.ktor.client.plugins.logging.Logger
+import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 
 interface ApiService {
     suspend fun mobileLogin(phoneNumber: PhoneNumberSerialization): Int
@@ -41,6 +43,12 @@ interface ApiService {
                     }
                     // JSON
                     install(ContentNegotiation) {
+                        register(ContentType.Text.Plain, KotlinxSerializationConverter(Json {
+                            prettyPrint = true
+                            isLenient = true
+                            ignoreUnknownKeys = true
+
+                        }))
                         json(Json {
                             prettyPrint = true
                             isLenient = true

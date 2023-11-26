@@ -51,19 +51,21 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
 //        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
 
-    suspend fun smsLogin(code: String) {
+    suspend fun smsLogin(code: String): Boolean {
         val responseUser = repository.smsLogin(code)
-        if(responseUser != null) { //!!
+        if(responseUser != null) {
             sharedPreference.saveString(PHONENUMBER, getPhoneNumber())
             sharedPreference.saveInt(ID, responseUser.id)
-            sharedPreference.saveString(USERNAME, responseUser.username)
+            sharedPreference.saveString(USERNAME, responseUser.user_name)
+            return true
         }
+        return false
     }
 
     fun checkAuthorization():Boolean {
         if(sharedPreference.getValueString(USERNAME)!= null &&
             sharedPreference.getValueString(PHONENUMBER)!= null &&
-            sharedPreference.getValueString(ID)!= null) {
+            sharedPreference.getValueInt(ID)!= null) {
             return true
         }
         return false

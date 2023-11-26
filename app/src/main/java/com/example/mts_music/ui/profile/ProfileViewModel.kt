@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.mts_music.Constants.ID
 import com.example.mts_music.Constants.PHONENUMBER
+import com.example.mts_music.Constants.USERNAME
 import com.example.mts_music.SharedPreferences
 import com.example.mts_music.ui.room.RoomRepository
 import kotlinx.coroutines.launch
@@ -33,8 +34,15 @@ class ProfileViewModel(context: Context, private val repository: RoomRepository,
     }
 
     suspend fun sendUserNick(usernameText: String) {
-        profileRepository.sendUserNick(usernameText, sharedPreference.getValueString(PHONENUMBER)!!,
+        val result = profileRepository.sendUserNick(usernameText, sharedPreference.getValueString(PHONENUMBER)!!,
             sharedPreference.getValueInt(ID)!!)
+        if(result == 200) {
+            sharedPreference.saveString(USERNAME, usernameText)
+        }
+    }
+
+    fun getUserName(): String? {
+        return sharedPreference.getValueString(USERNAME)
     }
 
 

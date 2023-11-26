@@ -1,11 +1,9 @@
 package com.example.mts_music.API
 
 import android.util.Log
-import com.example.mts_music.data.Code
 import com.example.mts_music.data.CodeSerialization
-import com.example.mts_music.data.PhoneNumber
 import com.example.mts_music.data.PhoneNumberSerialization
-import com.example.mts_music.data.UserIdNickSerialization
+import com.example.mts_music.data.UserNickSerialization
 import com.example.mts_music.data.UserSerialization
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -28,10 +26,10 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
             }
 
             if (response.status.isSuccess()) {
-                return response.body()
+                return response.status.value
             } else {
                 Log.d("mobileLogin failed", response.body())
-                return  response.body()  //!!
+                return  response.status.value
             }
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")
@@ -70,17 +68,17 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
 
     override suspend fun sendUserNick(user: UserSerialization): Int {
         try {
-            val userNick = UserIdNickSerialization(user.id, user.username)
+            val userNick = UserNickSerialization(user.user_name)
             val response: HttpResponse = client.put {
-                url(ApiRoutes.BASE_URL + ApiRoutes.USER)
+                url(ApiRoutes.BASE_URL + ApiRoutes.USER + "/" + user.id)
                 setBody(userNick)
             }
 
             if (response.status.isSuccess()) {
-                return response.body()
+                return response.status.value
             } else {
                 Log.d("smsLogin failed", response.body())
-                return  response.body()  //!!
+                return  response.status.value
             }
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")

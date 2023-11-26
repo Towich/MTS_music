@@ -208,8 +208,8 @@ fun AuthScreen(
                                 showSetNumberBottomSheet = false
                                 showGetSmsBottomSheet = true
                                 viewModel.setPhoneNumber(numberText)
-                                scope.launch(Dispatchers.IO) {
-//                                    Toast.makeText(context, viewModel.mobileLogin(numberText), Toast.LENGTH_SHORT).show()
+                                scope.launch() {
+                                    Toast.makeText(context, viewModel.mobileLogin(numberText), Toast.LENGTH_SHORT).show()
                                 }
                             }
                             else{
@@ -285,19 +285,17 @@ fun AuthScreen(
                             }
                             if(it.length == 5){
                                 //метод для отправки кода на бэк
-                                scope.launch(Dispatchers.IO) {
-                                    viewModel.smsLogin(it)
-                                }
-
-                                if(it == "00000"){
-                                    val screenToTransfer = Screen.ProfileScreen
-                                    NavigationRouter.currentScreen.value = screenToTransfer
-                                    navController.navigate(screenToTransfer.route){
-                                        popUpTo(0)
+                                scope.launch {
+                                    val smsResult = viewModel.smsLogin(smsText)
+                                    if (smsResult) {
+                                        val screenToTransfer = Screen.ProfileScreen
+                                        NavigationRouter.currentScreen.value = screenToTransfer
+                                        navController.navigate(screenToTransfer.route) {
+                                            popUpTo(0)
+                                        }
+                                    } else {
+                                        showIncorrectSMS = true
                                     }
-                                }
-                                else{
-                                    showIncorrectSMS = true
                                 }
                             }
                         },

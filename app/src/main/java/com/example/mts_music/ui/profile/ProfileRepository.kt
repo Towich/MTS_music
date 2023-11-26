@@ -9,8 +9,7 @@ class ProfileRepository {
     private val apiService by lazy {
         ApiService.create()
     }
-    suspend fun sendUserNick(usernameText: String, phoneNumber: String, id: Int) {
-        val result = apiService.sendUserNick(UserSerialization(id, phoneNumber, usernameText))
-        Log.d("result of sendUserNick()", result.toString())
+    suspend fun sendUserNick(usernameText: String, phoneNumber: String, id: Int): Int {
+        return apiService.sendUserNick(UserSerialization(id, phoneNumber, usernameText))
     }
 }

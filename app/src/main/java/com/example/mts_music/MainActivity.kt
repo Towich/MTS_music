@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // TODO: Изменить конец на Screen.AuthorizationScreen
-        val startScreen = if (connectToExistRoom) Screen.RoomsScreen else Screen.RoomsScreen
+        val startScreen = if (connectToExistRoom) Screen.RoomsScreen else Screen.AuthorizationScreen
         Constants.startScreen = startScreen
         app.roomRepository.setConnectToExistRoom(connectToExistRoom)
 

@@ -8,7 +8,7 @@ class Converter {
     }
 
     private fun convertUserSerializationToUser(user: UserSerialization): User {
-        return User(user.id, user.phoneNumber, user.username)
+        return User(user.id, user.phone_number, user.user_name)
     }
 
     private fun convertPhoneNumberToPhoneNumberSerialization(phoneNumber: PhoneNumber): PhoneNumberSerialization {
@@ -16,7 +16,7 @@ class Converter {
     }
 
     private fun convertPhoneNumberSerializationToPhoneNumber(phoneNumber: PhoneNumberSerialization): PhoneNumber {
-        return PhoneNumber(phoneNumber.phoneNumber)
+        return PhoneNumber(phoneNumber.phone_number)
     }
 
 

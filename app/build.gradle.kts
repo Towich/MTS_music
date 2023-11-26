@@ -69,6 +69,7 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
     implementation("io.ktor:ktor-client-logging:2.3.5")
+    implementation ("com.google.code.gson:gson:2.9.0")
 
     //QR-code generator
     implementation("com.github.androidmads:QRGenerator:1.0.1")
