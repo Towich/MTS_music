@@ -54,12 +54,12 @@ fun RoomsScreen(
     mViewModel: RoomsViewModel
 ) {
 
-    var showBottomSheet by remember { mutableStateOf(mViewModel.getConnectToExistRoom()) }
-
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-    )
-    val scope = rememberCoroutineScope()
+//    var showBottomSheet by remember { mutableStateOf(mViewModel.getConnectToExistRoom()) }
+//
+//    val sheetState = rememberModalBottomSheetState(
+//        skipPartiallyExpanded = true,
+//    )
+//    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -113,59 +113,59 @@ fun RoomsScreen(
             }
         }
 
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                onDismissRequest = {
-                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        if (!sheetState.isVisible) {
-                            showBottomSheet = false
-                        }
-                    }
-                },
-                sheetState = sheetState,
-                modifier = Modifier
-                    .height(400.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 30.dp, end = 30.dp, top = 30.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Желаете войти в комнату #${mViewModel.getRoomIdToConnect()}?",
-                        style = MaterialTheme.typography.titleLarge,
-                        textAlign = TextAlign.Center
-                    )
-                    PrimaryButton(
-                        onClick = {
-                            // TODO: Отправляем Никитосу и Мише запрос на подключение
-                            NavigationRouter.currentScreen.value = Screen.RoomScreen
-                            navController.navigate(Screen.RoomScreen.route)
-                        },
-                        text = "Войти",
-                        backgroundColor = MaterialTheme.colorScheme.primary,
-                        textColor = Color.White,
-                        modifier = Modifier
-                            .padding(top = 15.dp)
-                    )
-                    PrimaryButton(
-                        onClick = {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    showBottomSheet = false
-                                }
-                            }
-                        },
-                        text = "Нет",
-                        backgroundColor = MaterialTheme.colorScheme.onSecondary,
-                        textColor = Color.White,
-                        modifier = Modifier
-                            .padding(top = 15.dp)
-                    )
-                }
-            }
-        }
+//        if (showBottomSheet) {
+//            ModalBottomSheet(
+//                onDismissRequest = {
+//                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+//                        if (!sheetState.isVisible) {
+//                            showBottomSheet = false
+//                        }
+//                    }
+//                },
+//                sheetState = sheetState,
+//                modifier = Modifier
+//                    .height(400.dp)
+//            ) {
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(start = 30.dp, end = 30.dp, top = 30.dp),
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    Text(
+//                        text = "Желаете войти в комнату #${mViewModel.getRoomIdToConnect()}?",
+//                        style = MaterialTheme.typography.titleLarge,
+//                        textAlign = TextAlign.Center
+//                    )
+//                    PrimaryButton(
+//                        onClick = {
+//                            // TODO: Отправляем Никитосу и Мише запрос на подключение
+//                            NavigationRouter.currentScreen.value = Screen.RoomScreen
+//                            navController.navigate(Screen.RoomScreen.route)
+//                        },
+//                        text = "Войти",
+//                        backgroundColor = MaterialTheme.colorScheme.primary,
+//                        textColor = Color.White,
+//                        modifier = Modifier
+//                            .padding(top = 15.dp)
+//                    )
+//                    PrimaryButton(
+//                        onClick = {
+//                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+//                                if (!sheetState.isVisible) {
+//                                    showBottomSheet = false
+//                                }
+//                            }
+//                        },
+//                        text = "Нет",
+//                        backgroundColor = MaterialTheme.colorScheme.onSecondary,
+//                        textColor = Color.White,
+//                        modifier = Modifier
+//                            .padding(top = 15.dp)
+//                    )
+//                }
+//            }
+//        }
     }
 }
 

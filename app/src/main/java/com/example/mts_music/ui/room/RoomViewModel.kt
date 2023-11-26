@@ -37,6 +37,9 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
         return ""
     }
 
+    fun getConnectToExistRoom(): Boolean = repository.getConnectToExistRoom()
+    fun getRoomIdToConnect(): String = repository.getRoomIdToConnect()
+
     class RoomViewModelFactory(
         private val context: Context,
         private val repository: RoomRepository
