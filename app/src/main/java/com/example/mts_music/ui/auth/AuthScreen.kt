@@ -315,7 +315,7 @@ fun AuthScreen(
                             .padding(top = 30.dp)
                             .clickable {
                                 // if SMS has sent
-                                viewModel.sendSms()
+                                viewModel.sendSms(numberText)
                             }
                     )
 

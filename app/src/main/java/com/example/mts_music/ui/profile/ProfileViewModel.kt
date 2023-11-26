@@ -37,6 +37,7 @@ class ProfileViewModel(context: Context, private val repository: RoomRepository,
         val result = profileRepository.sendUserNick(usernameText, sharedPreference.getValueString(PHONENUMBER)!!,
             sharedPreference.getValueInt(ID)!!)
         if(result == 200) {
+            setUsername(usernameText)
             sharedPreference.saveString(USERNAME, usernameText)
         }
     }

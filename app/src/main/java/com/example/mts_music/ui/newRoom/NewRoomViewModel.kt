@@ -8,10 +8,7 @@ import com.example.mts_music.SharedPreferences
 import com.example.mts_music.data.Converter
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.User
-import com.example.mts_music.ui.auth.AuthRepository
-import com.example.mts_music.ui.auth.AuthViewModel
 import com.example.mts_music.ui.room.RoomRepository
-import java.util.UUID
 
 class NewRoomViewModel(context: Context, private val repository: RoomRepository) : ViewModel() {
 
@@ -26,12 +23,9 @@ class NewRoomViewModel(context: Context, private val repository: RoomRepository)
         val roomSerialization = repository.postNewRoom(sharedPreference.getValueInt(ID)!!, newRoom.roomName,
             newRoom.access, newRoom.roomToken)
         val mutableListUser = mutableListOf<User>()
-        for(user in roomSerialization.users) {
-            mutableListUser.add(converter.convertUserSerializationToUser(user))
-        }
         val room = Room(roomSerialization.id, roomSerialization.name,
             newRoom.roomToken, "error", "error", converter.convertUserSerializationToUser(roomSerialization.author).username,
-            mutableListUser.toList(), roomSerialization.access)
+            listOf(), roomSerialization.access)
 
         return room
     }

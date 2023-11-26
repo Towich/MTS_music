@@ -43,16 +43,16 @@ class AuthViewModel(private val context: Context, private val repository: AuthRe
         return response
     }
 
-    fun sendSms() {
+    fun sendSms(numberText: String) {
         viewModelScope.launch {
-            repository.sendSms(sharedPreference.getValueInt(ID).toString())
+            repository.sendSms(numberText)
         }
         Toast.makeText(context, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
 
     suspend fun smsLogin(code: String): Boolean {
         val responseUser = repository.smsLogin(code)
-        if(responseUser != null) {
+        if(responseUser.phone_number != "" && responseUser.user_name != "") {
             sharedPreference.saveString(PHONENUMBER, getPhoneNumber())
             sharedPreference.saveInt(ID, responseUser.id)
             sharedPreference.saveString(USERNAME, responseUser.user_name)

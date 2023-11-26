@@ -2,14 +2,12 @@ package com.example.mts_music.ui.profile
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,15 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.mts_music.Constants.PHONENUMBER
 import com.example.mts_music.R
 import com.example.mts_music.navigation.Screen
-import com.example.mts_music.ui.auth.AuthRepository
 import com.example.mts_music.ui.auth.PrimaryButton
 import com.example.mts_music.ui.theme.Black_1E
 import com.example.mts_music.ui.theme.Orange
@@ -51,7 +47,7 @@ fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel
 ) {
-    var usernameText by remember { mutableStateOf(viewModel.getUsername()) }
+    var usernameText by remember { mutableStateOf(viewModel.getUserName()?: "") }
     var showUsernameErrorText by remember { mutableStateOf(false) }
     var hasChangesInUsername by remember { mutableStateOf(false) }
     var showExitFromAccountBottomSheet by remember { mutableStateOf(false) }
@@ -131,7 +127,7 @@ fun ProfileScreen(
 
 
         OutlinedTextField(
-            value = "+7 902 043 26 09",
+            value = viewModel.sharedPreference.getValueString(PHONENUMBER)?: "",
             readOnly = true,
             onValueChange = {
             },
