@@ -30,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisallowComposableCalls
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,15 +45,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.mts_music.App
 import com.example.mts_music.R
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.theme.Blue_4D
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -319,12 +314,8 @@ fun AuthScreen(
                         modifier = Modifier
                             .padding(top = 30.dp)
                             .clickable {
-                                // send request to backend
-                                // we expect from back new SMS
-
                                 // if SMS has sent
                                 viewModel.sendSms()
-
                             }
                     )
 

@@ -7,6 +7,6 @@ object ApiRoutes {
     const val CHECK_SMS = "/checksms"
     const val ROOMS = "/rooms"
     const val MUSIC = "/music"
-    const val WS_URL = "https://xaxatonmtc.onrender.com/connect/"
+    const val WS_URL = "ws://xaxatonmtc.onrender.com/connect/"
 
 }

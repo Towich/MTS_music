@@ -8,19 +8,15 @@ import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.example.mts_music.Constants.ID
 import com.example.mts_music.SharedPreferences
 import com.example.mts_music.WebSocketListener
 import com.example.mts_music.data.Room
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.WebSocket
-import okio.ByteString
 
 class RoomViewModel(context: Context, private val repository: RoomRepository) : ViewModel() {
     val sharedPreference: SharedPreferences = SharedPreferences(context = context)
-
 
     fun getCurrentRoom(): Room {
         return repository.getCurrentRoom() ?: Room()
@@ -58,7 +54,7 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
 
     fun makeConnectByWebSocket() = viewModelScope.launch {
         val request: okhttp3.Request = okhttp3.Request.Builder()
-            .url("https://xaxatonmtc.onrender.com/connect/5")
+            .url("https://xaxatonmtc.onrender.com/connect/$user_id")
             .build()
 
         val client = OkHttpClient()
@@ -66,8 +62,8 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
             repository.setMusicFromByteArray(bytes)
         }
         val ws: WebSocket = client.newWebSocket(request, listener)
+        repository.getMusic(getCurrentRoom().id, user_id.toString())
 
-        repository.getMusic(getCurrentRoom().id,"5")
 
     }
 
