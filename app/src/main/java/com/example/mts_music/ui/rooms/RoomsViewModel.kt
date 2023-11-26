@@ -3,11 +3,13 @@ package com.example.mts_music.ui.rooms
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.mts_music.data.Converter
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.User
 import com.example.mts_music.ui.room.RoomRepository
 import com.example.mts_music.ui.room.RoomViewModel
+import kotlinx.coroutines.launch
 
 class RoomsViewModel(context: Context, private val repository: RoomRepository): ViewModel() {
     val converter = Converter()
@@ -55,7 +57,7 @@ class RoomsViewModel(context: Context, private val repository: RoomRepository): 
     fun getConnectToExistRoom(): Boolean = repository.getConnectToExistRoom()
     fun getRoomIdToConnect(): String = repository.getRoomIdToConnect()
 
-    suspend fun getListOfRooms() {
+    fun getListOfRooms() = viewModelScope.launch {
         val listOfRooms = repository.getListOfRooms()
         val mutableListofRooms = mutableListOf<Room>()
         for(room in listOfRooms) {

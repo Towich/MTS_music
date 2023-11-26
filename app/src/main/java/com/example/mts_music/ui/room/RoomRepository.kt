@@ -9,14 +9,11 @@ import com.example.mts_music.data.NewRoomSerialization
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.RoomIdNameUser_CountSerialization
 import com.example.mts_music.data.RoomUserIdAccessNameSerialization
+import okio.ByteString
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
-
-
-
 
 
 class RoomRepository(private val context: Context) {
@@ -25,8 +22,11 @@ class RoomRepository(private val context: Context) {
     private var roomIdToConnect: String? = null
     private val mp: MediaPlayer = MediaPlayer.create(context, R.raw.zveri)
 
+    // create temp file that will hold byte array
+    val tempMp3 = File.createTempFile("kurchina", "mp3", context.cacheDir)
+
     init {
-//        setMusicFromByteArray()
+        tempMp3.deleteOnExit()
     }
 
     private val apiService by lazy {
@@ -71,23 +71,13 @@ class RoomRepository(private val context: Context) {
         apiService.getMusic(room_id, user_id)
     }
 
-    private fun setMusicFromByteArray() {
-        val ins: InputStream = context.resources.openRawResource(
-            context.resources.getIdentifier(
-                "vahteram",
-                "raw", context.packageName
-            )
-        )
+    fun setMusicFromByteArray(byteString: ByteString) {
 
-        val mp3SoundByteArray = ins.readBytes()
-        Log.i("readBytes()", mp3SoundByteArray.size.toString())
+        Log.i("readBytes()", byteString.size.toString())
 
         try {
-            // create temp file that will hold byte array
-            val tempMp3 = File.createTempFile("kurchina", "mp3", context.cacheDir)
-            tempMp3.deleteOnExit()
             val fos = FileOutputStream(tempMp3)
-            fos.write(mp3SoundByteArray)
+            fos.write(byteString.toByteArray())
             fos.close()
 
             // resetting mediaplayer instance to evade problems

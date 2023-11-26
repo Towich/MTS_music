@@ -364,8 +364,9 @@ fun RoomScreen(
                 PrimaryButton(
                     onClick = {
                         // TODO: Connect to the room
+                        mViewModel.makeConnectByWebSocket()
                         scope.launch {
-                            mViewModel.makeConnectByWebSocket()
+
                             //mViewModel.getMoreMusic()
                         }
                         isConnectButtonVisible = false
