@@ -29,6 +29,7 @@ interface ApiService {
     suspend fun getListOfRooms(): List<RoomIdNameUser_CountSerialization>
     suspend fun postNewRoom(room: RoomUserIdAccessNameSerialization): NewRoomSerialization
     suspend fun getMusic(room_id: String, user_id: String)
+    suspend fun deleteRoom(roomId: String, userId: String?)
 
     companion object {
         fun create(): ApiServiceImpl {

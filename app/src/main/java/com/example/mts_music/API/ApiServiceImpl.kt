@@ -15,6 +15,7 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.RedirectResponseException
 import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
@@ -57,7 +58,7 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
                 return response.body()
             } else {
                 Log.d("smsLogin failed", response.body())
-                return  response.body()
+                return  UserSerialization(0, "", "")
             }
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")
@@ -137,6 +138,21 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
             val response: HttpResponse = client.get {
                 url(ApiRoutes.BASE_URL + MUSIC + "/" + room_id + "/" + "1")
             }
+        } catch (ex: RedirectResponseException) {
+            throw Exception("Redirect error: ${ex.response.status.description}")
+        } catch (ex: ClientRequestException) {
+            throw Exception("Client request error: ${ex.response.status.description}")
+        } catch (ex: ServerResponseException) {
+            throw Exception("Server response error: ${ex.response.status.description}")
+        }
+    }
+
+    override suspend fun deleteRoom(roomId: String, userId: String?) {
+        try {
+            val response: HttpResponse = client.delete {
+                url(ApiRoutes.BASE_URL + ROOMS + "/" + roomId + "/" + userId)
+            }
+
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")
         } catch (ex: ClientRequestException) {

@@ -20,7 +20,6 @@ class AuthRepository {
 
     suspend fun smsLogin(code: String): UserSerialization {
         return apiService.smsLogin(CodeSerialization(code))
-
     }
 
     suspend fun sendSms(phoneNumber: String) {

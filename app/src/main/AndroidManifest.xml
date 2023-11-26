@@ -19,7 +19,7 @@
             android:windowSoftInputMode="adjustResize"
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="МТС Синк"
             android:theme="@style/Theme.MTS_music">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

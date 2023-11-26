@@ -67,6 +67,11 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
 
     }
 
+    suspend fun deleteRoom(id: String) {
+        repository.deleteRoom(id, sharedPreference.getValueInt(ID).toString())
+    }
+
+
     class RoomViewModelFactory(
         private val context: Context,
         private val repository: RoomRepository

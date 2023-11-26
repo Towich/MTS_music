@@ -99,6 +99,8 @@ fun RoomScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
+                        scope.launch { mViewModel.deleteRoom(currentRoom.id) }
+
                         navController.navigate(Screen.RoomsScreen.route) {
                             popUpTo(0)
                         }
@@ -364,10 +366,8 @@ fun RoomScreen(
                 PrimaryButton(
                     onClick = {
                         // TODO: Connect to the room
-                        mViewModel.makeConnectByWebSocket()
                         scope.launch {
-
-                            //mViewModel.getMoreMusic()
+                            mViewModel.makeConnectByWebSocket()
                         }
                         isConnectButtonVisible = false
                     },

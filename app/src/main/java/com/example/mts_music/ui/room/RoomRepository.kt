@@ -104,4 +104,8 @@ class RoomRepository(private val context: Context) {
         val eSound = MediaPlayer.create(context, resid)
         eSound.start()
     }
+
+    suspend fun deleteRoom(roomId: String, userId: String?) {
+        apiService.deleteRoom(roomId, userId)
+    }
 }
