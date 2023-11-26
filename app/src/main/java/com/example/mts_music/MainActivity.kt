@@ -3,7 +3,6 @@ package com.example.mts_music
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -22,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val app = applicationContext as App
-        var flagStart = false
+        var connectToExistRoom = false
 
         val appLinkAction: String? = intent.action
         val appLinkData: Uri? = intent.data
@@ -35,15 +34,16 @@ class MainActivity : ComponentActivity() {
                 val id: String? = appLinkData.getQueryParameter("id")
 //                Log.i("DataURLRoom", "Data: $token, $id")
                 if (!token.isNullOrEmpty() && app.roomRepository.isTokenValid(token)) {
-                    flagStart = true
+                    connectToExistRoom = true
                 }
 //                NavigationRouter.currentScreen.value = Screen.RoomScreen
             }
         }
 
         // TODO: Изменить конец на Screen.AuthorizationScreen
-        val startScreen = if (flagStart) Screen.RoomScreen else Screen.NewRoomScreen
+        val startScreen = if (connectToExistRoom) Screen.RoomsScreen else Screen.RoomsScreen
         Constants.startScreen = startScreen
+        app.roomRepository.setConnectToExistRoom(connectToExistRoom)
 
         setContent {
             val navController = rememberNavController()
@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     bottomBar = {
                         when (NavigationRouter.currentScreen.value) {
-                            Screen.AuthorizationScreen, Screen.RoomScreen, Screen.NewRoomScreen -> null
+                            Screen.AuthorizationScreen, Screen.RoomScreen, Screen.NewRoomScreen, Screen.ChatScreen -> null
                             else -> {
                                 CustomBottomNavigation(currentScreenRoute = NavigationRouter.currentScreen.value.route) { screen ->
                                     if (screen.route != NavigationRouter.currentScreen.value.route) {

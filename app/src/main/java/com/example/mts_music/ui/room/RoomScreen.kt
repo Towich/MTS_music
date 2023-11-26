@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mts_music.R
+import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -85,7 +86,15 @@ fun RoomScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = currentRoom.roomName) },
+                title = {
+                    Text(
+                        text = currentRoom.roomName,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .padding(start = 10.dp, end = 10.dp)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.navigate(Screen.RoomsScreen.route) {
@@ -222,8 +231,8 @@ fun RoomScreen(
 
             SecondaryButton(
                 onClick = {
-                    // TODO:Navigate to ChatScreen
-
+                    NavigationRouter.currentScreen.value = Screen.ChatScreen
+                    navController.navigate(Screen.ChatScreen.route)
                 },
                 text = "Перейти в Чат комнаты",
                 backgroundColor = MaterialTheme.colorScheme.secondary,
@@ -274,7 +283,8 @@ fun RoomScreen(
                         .height(500.dp),
                     containerColor = Color.White
                 ) {
-                    val clipboardManager: androidx.compose.ui.platform.ClipboardManager = LocalClipboardManager.current
+                    val clipboardManager: androidx.compose.ui.platform.ClipboardManager =
+                        LocalClipboardManager.current
 
 
                     Column(
@@ -310,7 +320,8 @@ fun RoomScreen(
                             trailingIcon = {
                                 IconButton(onClick = {
                                     clipboardManager.setText(AnnotatedString(uriInviteToRoom))
-                                    Toast.makeText(context, "Скопировано!", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Скопировано!", Toast.LENGTH_SHORT)
+                                        .show()
                                 }) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.copy_link),

@@ -19,6 +19,8 @@ import com.example.mts_music.App
 import com.example.mts_music.Constants
 import com.example.mts_music.ui.auth.AuthScreen
 import com.example.mts_music.ui.auth.AuthViewModel
+import com.example.mts_music.ui.chat.ChatScreen
+import com.example.mts_music.ui.chat.ChatViewModel
 import com.example.mts_music.ui.newRoom.NewRoomScreen
 import com.example.mts_music.ui.newRoom.NewRoomViewModel
 import com.example.mts_music.ui.profile.ProfileScreen
@@ -43,6 +45,7 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
         composable(
             route = Screen.AuthorizationScreen.route
         ) {
+            NavigationRouter.currentScreen.value = Screen.AuthorizationScreen
             AuthScreen(
                 navController = navController,
                 context = context,
@@ -52,6 +55,7 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
         composable(
             route = Screen.ProfileScreen.route
         ) {
+            NavigationRouter.currentScreen.value = Screen.ProfileScreen
             ProfileScreen(
                 navController = navController,
                 viewModel = viewModel(factory = ProfileViewModel.ProfileViewModelFactory(context, app.roomRepository,
@@ -61,6 +65,7 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
         composable(
             route = Screen.RoomsScreen.route
         ) {
+            NavigationRouter.currentScreen.value = Screen.RoomsScreen
             RoomsScreen(
                 navController = navController,
                 mViewModel = viewModel(factory = RoomsViewModel.RoomsViewModelFactory(context, app.roomRepository))
@@ -69,6 +74,7 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
         composable(
             route = Screen.RoomScreen.route
         ) {
+            NavigationRouter.currentScreen.value = Screen.RoomScreen
             RoomScreen(
                 navController = navController,
                 context = context,
@@ -78,9 +84,19 @@ fun Navigation(app: App, navController: NavHostController, context: Context, sta
         composable(
             route = Screen.NewRoomScreen.route
         ) {
+            NavigationRouter.currentScreen.value = Screen.NewRoomScreen
             NewRoomScreen(
                 navController = navController,
                 mViewModel = viewModel(factory = NewRoomViewModel.NewRoomViewModelFactory(context, app.roomRepository))
+            )
+        }
+        composable(
+            route = Screen.ChatScreen.route
+        ) {
+            NavigationRouter.currentScreen.value = Screen.ChatScreen
+            ChatScreen(
+                navController = navController,
+                mViewModel = viewModel(factory = ChatViewModel.ChatViewModelFactory(context, app.chatRepository))
             )
         }
     }

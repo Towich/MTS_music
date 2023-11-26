@@ -50,6 +50,9 @@ class RoomsViewModel(context: Context, private val repository: RoomRepository): 
 
     fun setCurrentRoom(newRoom: Room) = repository.setCurrentRoom(newRoom)
 
+    fun getConnectToExistRoom(): Boolean = repository.getConnectToExistRoom()
+    fun getRoomIdToConnect(): String = repository.getRoomIdToConnect()
+
     class RoomsViewModelFactory(private val context: Context, private val repository: RoomRepository) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T = RoomsViewModel(context, repository) as T

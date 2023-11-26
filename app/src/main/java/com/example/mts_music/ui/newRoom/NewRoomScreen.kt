@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mts_music.data.Room
+import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.auth.PrimaryButton
 import java.util.UUID
@@ -118,6 +119,7 @@ fun NewRoomScreen(
                     // TODO:SEND TO NIKITOS & MICHAIL
 
                     mViewModel.setCurrentRoom(newRoom = newRoom)
+                    NavigationRouter.currentScreen.value = Screen.RoomScreen
                     navController.navigate(Screen.RoomScreen.route){
                         popUpTo(0)
                     }
@@ -131,6 +133,7 @@ fun NewRoomScreen(
 
             PrimaryButton(
                 onClick = {
+                    NavigationRouter.currentScreen.value = Screen.RoomsScreen
                     navController.navigate(Screen.RoomsScreen.route) {
                         popUpTo(0)
                     }
