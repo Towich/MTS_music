@@ -53,14 +53,15 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
     }
 
     suspend fun makeConnectByWebSocket() {
+        val user_id = sharedPreference.getValueInt(ID)
         val request: okhttp3.Request = okhttp3.Request.Builder()
-            .url("https://5f67-95-24-131-63.ngrok-free.app/connect/4")
+            .url("https://xaxatonmtc.onrender.com/connect/$user_id")
             .build()
 
         val client = OkHttpClient()
         val listener = WebSocketListener()
         val ws: WebSocket = client.newWebSocket(request, listener)
-        repository.getMusic(getCurrentRoom().id,"4")
+        repository.getMusic(getCurrentRoom().id, user_id.toString())
 
     }
 

@@ -25,7 +25,6 @@ import kotlinx.serialization.json.Json
 interface ApiService {
     suspend fun mobileLogin(phoneNumber: PhoneNumberSerialization): Int
     suspend fun smsLogin(code: CodeSerialization): UserSerialization
-    suspend fun sendSms(): Int
     suspend fun sendUserNick(user: UserSerialization): Int
     suspend fun getListOfRooms(): List<RoomIdNameUser_CountSerialization>
     suspend fun postNewRoom(room: RoomUserIdAccessNameSerialization): NewRoomSerialization

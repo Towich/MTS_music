@@ -1,6 +1,7 @@
 package com.example.mts_music.ui.auth
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,7 @@ import com.example.mts_music.SharedPreferences
 import com.example.mts_music.data.Converter
 import kotlinx.coroutines.launch
 
-class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val context: Context, private val repository: AuthRepository) : ViewModel() {
 
     private var phoneNumber = ""
     val sharedPreference: SharedPreferences =SharedPreferences(context = context)
@@ -44,11 +45,9 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
 
     fun sendSms() {
         viewModelScope.launch {
-            repository.sendSms()
+            repository.sendSms(sharedPreference.getValueInt(ID).toString())
         }
-
-//        context
-//        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
 
     suspend fun smsLogin(code: String): Boolean {

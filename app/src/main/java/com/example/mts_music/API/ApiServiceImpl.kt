@@ -57,7 +57,7 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
                 return response.body()
             } else {
                 Log.d("smsLogin failed", response.body())
-                return  response.body()  //!!
+                return  response.body()
             }
         } catch (ex: RedirectResponseException) {
             throw Exception("Redirect error: ${ex.response.status.description}")
@@ -66,10 +66,6 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
         } catch (ex: ServerResponseException) {
             throw Exception("Server response error: ${ex.response.status.description}")
         }
-    }
-
-    override suspend fun sendSms(): Int {
-        TODO("Not yet implemented")
     }
 
     override suspend fun sendUserNick(user: UserSerialization): Int {

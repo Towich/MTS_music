@@ -8,5 +8,6 @@ data class NewRoomSerialization (
     val name: String = "error",
     val author: UserSerialization,
     val users: List<UserSerialization>,
+    val messages: List<MessageSerialization>,
     val access: Int,
 )
