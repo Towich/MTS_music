@@ -15,35 +15,35 @@ class RoomsViewModel(context: Context, private val repository: RoomRepository): 
             roomName = "Комната №1",
             playingAudio = "О Боже какой мужчина па павв авава",
             authorRoom = "Мария",
-            users = listOf(User("+71234567890", "Мария"), User("+75678904637", "Никита"), User("+75647890329", "Иван")),
+            users = listOf(User(id = 1,"+71234567890", "Мария"), User(id = 5656,"+75678904637", "Никита"), User(id = 5555,"+75647890329", "Иван")),
             access = 1
         ),
         Room(
             id = "0002",
             roomName = "Комната МусиМисиМуси МУси МИссси Муси смсимисми",
             authorRoom = "Никита",
-            users = listOf(User("+75678904637", "Никита"), User("+75647890329", "Михаил")),
+            users = listOf(User(id = 2,"+75678904637", "Никита"), User(id = 2323,"+75647890329", "Михаил")),
             access = 1
         ),
         Room(
             id = "0003",
             roomName = "Комната Никиты",
             authorRoom = "Никита",
-            users = listOf(User("+75678904637", "Никита")),
+            users = listOf(User(id = 3,"+75678904637", "Никита")),
             access = 1
         ),
         Room(
             id = "0004",
             roomName = "Комната Муси",
             authorRoom = "Иван",
-            users = listOf(User("+75678904637", "Иван"), User("+75647890329", "Мария")),
+            users = listOf(User(id = 4,"+75678904637", "Иван"), User(id = 23,"+75647890329", "Мария")),
             access = 1
         ),
         Room(
             id = "0005",
             roomName = "Комната №254",
             authorRoom = "Михаил",
-            users = listOf(User("+71234567890", "Мария"), User("+75678904637", "Никита"), User("+75647890329", "Иван")),
+            users = listOf(User(id = 55,"+71234567890", "Мария"), User(id = 154,"+75678904637", "Никита"), User(id = 433,"+75647890329", "Иван")),
             access = 1
         ),
     )

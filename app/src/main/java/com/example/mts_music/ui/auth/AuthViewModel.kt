@@ -3,11 +3,13 @@ package com.example.mts_music.ui.auth
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.mts_music.Constants.ID
 import com.example.mts_music.Constants.PHONENUMBER
 import com.example.mts_music.Constants.USERNAME
 import com.example.mts_music.SharedPreferences
 import com.example.mts_music.data.Converter
+import kotlinx.coroutines.launch
 
 class AuthViewModel(context: Context, private val repository: AuthRepository) : ViewModel() {
 
@@ -40,8 +42,11 @@ class AuthViewModel(context: Context, private val repository: AuthRepository) : 
         return response
     }
 
-    suspend fun sendSms() {
-        repository.sendSms()
+    fun sendSms() {
+        viewModelScope.launch {
+            repository.sendSms()
+        }
+
 //        context
 //        Toast.makeText(contex, "СМС отправлено!", Toast.LENGTH_SHORT).show()
     }
