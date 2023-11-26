@@ -15,7 +15,7 @@ class WebSocketListener: WebSocketListener() {
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
         super.onMessage(webSocket, bytes)
-        Log.e("message websocket", bytes.hex())
+        Log.e("message websocket", bytes.toString())
     }
 
 
