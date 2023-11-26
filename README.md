@@ -11,7 +11,10 @@
 ## Используемые технологии
 * Мобильный клиент (Android): Kotlin, Jetpack Compose, OkHttp3, WebSockets, Ktor, qrgenearator.
 * Backend: Go, WebSockets, Http, PostgreSQL.
-Backend-часть проекта доступна по ссылке: https://github.com/Zuzinho/XAXAtonMTC
+Backend-часть проекта доступна по <a href="https://github.com/Zuzinho/XAXAtonMTC" target="_blank">ссылке</a>
+
+## Демонстрация работоспособности
+С демонстрацией работоспособности приложения можно ознакомиться по <a href="https://disk.yandex.ru/d/CJe1cjIVld6wLg" target="_blank">ссылке</a>
 
 ## Установка
 Чтобы запустить приложение на своем устройстве, выполните следующие шаги:
