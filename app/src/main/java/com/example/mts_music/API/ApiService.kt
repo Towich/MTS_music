@@ -1,11 +1,11 @@
 package com.example.mts_music.API
 
 import android.util.Log
-import com.example.mts_music.data.Code
 import com.example.mts_music.data.CodeSerialization
-import com.example.mts_music.data.PhoneNumber
+import com.example.mts_music.data.NewRoomSerialization
 import com.example.mts_music.data.PhoneNumberSerialization
-import com.example.mts_music.data.Response
+import com.example.mts_music.data.RoomIdNameUser_CountSerialization
+import com.example.mts_music.data.RoomUserIdAccessNameSerialization
 import com.example.mts_music.data.UserSerialization
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -27,6 +27,8 @@ interface ApiService {
     suspend fun smsLogin(code: CodeSerialization): UserSerialization
     suspend fun sendSms(): Int
     suspend fun sendUserNick(user: UserSerialization): Int
+    suspend fun getListOfRooms(): List<RoomIdNameUser_CountSerialization>
+    suspend fun postNewRoom(room: RoomUserIdAccessNameSerialization): NewRoomSerialization
 
     companion object {
         fun create(): ApiServiceImpl {

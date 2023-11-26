@@ -1,5 +1,6 @@
 package com.example.mts_music.ui.rooms
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +48,8 @@ import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.auth.PrimaryButton
 import kotlinx.coroutines.launch
 
+
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoomsScreen(
@@ -60,6 +63,10 @@ fun RoomsScreen(
         skipPartiallyExpanded = true,
     )
     val scope = rememberCoroutineScope()
+
+    scope.launch {
+        mViewModel.getListOfRooms()
+    }
 
     Column(
         modifier = Modifier

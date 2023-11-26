@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import com.example.mts_music.data.Room
 import com.example.mts_music.navigation.NavigationRouter
 import com.example.mts_music.navigation.Screen
 import com.example.mts_music.ui.auth.PrimaryButton
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 @Composable
@@ -44,6 +46,8 @@ fun NewRoomScreen(
 
         var newRoomText by remember { mutableStateOf("") }
         var isRoomPrivate by remember { mutableStateOf(false) }
+
+        val scope = rememberCoroutineScope()
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
@@ -116,7 +120,7 @@ fun NewRoomScreen(
                         roomToken = UUID.randomUUID().toString(),
                     )
 
-                    // TODO:SEND TO NIKITOS & MICHAIL
+                    scope.launch { mViewModel.postNewRoom(newRoom) }
 
                     mViewModel.setCurrentRoom(newRoom = newRoom)
                     NavigationRouter.currentScreen.value = Screen.RoomScreen

@@ -4,7 +4,10 @@ import android.content.Context
 import android.media.MediaPlayer
 import com.example.mts_music.API.ApiService
 import com.example.mts_music.R
+import com.example.mts_music.data.NewRoomSerialization
 import com.example.mts_music.data.Room
+import com.example.mts_music.data.RoomIdNameUser_CountSerialization
+import com.example.mts_music.data.RoomUserIdAccessNameSerialization
 
 class RoomRepository(private val context: Context){
     private var currentRoom: Room? = null
@@ -39,5 +42,13 @@ class RoomRepository(private val context: Context){
     fun isTokenValid(token: String): Boolean {
         // TODO: Проверка токена на валидность
         return true
+    }
+
+    suspend fun getListOfRooms(): List<RoomIdNameUser_CountSerialization> {
+        return apiService.getListOfRooms()
+    }
+
+    suspend fun postNewRoom(user_id: Int, nameOfRoom:String, access: Int, token: String): NewRoomSerialization {
+        return apiService.postNewRoom(RoomUserIdAccessNameSerialization(user_id, nameOfRoom, access, token))
     }
 }

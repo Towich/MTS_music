@@ -5,5 +5,6 @@ object ApiRoutes {
     const val LOGIN = "/login"
     const val USER = "/user"
     const val CHECK_SMS = "/checksms"
+    const val ROOMS = "/rooms"
 
 }
