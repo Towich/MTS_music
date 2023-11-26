@@ -53,7 +53,8 @@ fun RoomsScreen(
 //    )
     val scope = rememberCoroutineScope()
 
-    mViewModel.getListOfRooms()
+    scope.launch { mViewModel.getListOfRooms() }
+
 
     Column(
         modifier = Modifier
