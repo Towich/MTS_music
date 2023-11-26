@@ -21,11 +21,11 @@ Backend-часть проекта доступна по ссылке: https://gi
 
 ## Команда разработчиков 
 Проект создан командой "ХАХАтонщики" в рамках хакатона Хакатон Hack&Change by Changellenge >> 2023:
-- Android-разработчик: <a href="https://github.com/Towich" target="_blank">Nikita N.</a> 
-- Android-разработчик: <a href="https://github.com/Leymoy24" target="_blank">Ivan D.</a> 
-- Android-разработчик: <a href="https://github.com/dobro0121" target="_blank">Maria D.</a>  
-- Backend-разработчик: <a href="https://github.com/Michael-Levitin" target="_blank">Michael L.</a>
-- Backend-разработчик: <a href="https://github.com/Zuzinho" target="_blank">Nikita Z.</a>
+- Android-разработчик: <a href="https://github.com/Towich" target="_blank">Никита Новичков</a> 
+- Android-разработчик: <a href="https://github.com/Leymoy24" target="_blank">Иван Доброхвалов</a> 
+- Android-разработчик: <a href="https://github.com/dobro0121" target="_blank">Мария Домбровская</a>  
+- Backend-разработчик: <a href="https://github.com/Michael-Levitin" target="_blank">Михаил Левитин</a>
+- Backend-разработчик: <a href="https://github.com/Zuzinho" target="_blank">Никита Зозуля</a>
 
 ## Дополнительная информация
 Приложение разработано командой "ХАХАтонщики" в рамках хакатона Hack&Change by Changellenge >> 2023.
