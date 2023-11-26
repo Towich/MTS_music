@@ -1,4 +1,5 @@
 # MTS_music
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=F7002C&random=false&width=435&lines=%D0%94%D0%BE%D0%B1%D1%80%D0%BE+%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C+%D0%B2+MTS_music!)](https://git.io/typing-svg)
 </br>MTS_music - это приложение для совместного прослушивания музыки в режиме реального времени с друзьями или случайными людьми со всего мира. 
 ## Основной функционал
 * Авторизация пользователей.
@@ -18,7 +19,7 @@ Backend-часть проекта доступна по ссылке: https://gi
 2. Откройте проект в Android Studio
 3. Запустите приложение на эмуляторе или на устройстве
 
-## Команда разработчиков
+## Команда разработчиков 
 Проект создан командой "ХАХАтонщики" в рамках хакатона Хакатон Hack&Change by Changellenge >> 2023:
 - Android-разработчик: <a href="https://github.com/Towich" target="_blank">Nikita N.</a> 
 - Android-разработчик: <a href="https://github.com/Leymoy24" target="_blank">Ivan D.</a> 
