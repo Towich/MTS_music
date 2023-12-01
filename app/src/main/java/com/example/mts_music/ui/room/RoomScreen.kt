@@ -262,6 +262,8 @@ fun RoomScreen(
                             showBottomSheet = true
                         }
                     }
+
+
                 },
                 text = "Добавить слушателя",
                 backgroundColor = MaterialTheme.colorScheme.secondary,
@@ -367,15 +369,28 @@ fun RoomScreen(
                     onClick = {
                         // TODO: Connect to the room
                         scope.launch {
-                            mViewModel.makeConnectByWebSocket()
+//                            mViewModel.makeConnectByWebSocket()
                         }
-                        isConnectButtonVisible = false
+//                        isConnectButtonVisible = false
+                        mViewModel.addNextPartMusic()
+
                     },
-                    text = "Подключиться",
+                    text = "Загрузить часть", // change to "Подключиться"
                     backgroundColor = MaterialTheme.colorScheme.primary,
                     textColor = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .padding(top = 50.dp)
+                )
+
+                PrimaryButton(
+                    onClick = {
+                        mViewModel.playBufferMediaPlayer()
+                    },
+                    text = "Запустить буфферный mp",
+                    backgroundColor = MaterialTheme.colorScheme.primary,
+                    textColor = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier
+                        .padding(top = 10.dp)
                 )
             }
 

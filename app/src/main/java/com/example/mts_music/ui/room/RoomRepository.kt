@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.util.Log
 import com.example.mts_music.API.ApiService
-import com.example.mts_music.R
+import com.example.mts_music.data.RoomMusicPlayer
 import com.example.mts_music.data.NewRoomSerialization
 import com.example.mts_music.data.Room
 import com.example.mts_music.data.RoomIdNameUser_CountSerialization
@@ -16,18 +16,13 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class RoomRepository(private val context: Context) {
+class RoomRepository(context: Context) {
     private var currentRoom: Room? = null
     private var connectToExistRoom = false
     private var roomIdToConnect: String? = null
-    private val mp: MediaPlayer = MediaPlayer.create(context, R.raw.zveri)
+    private val roomMusicPlayer = RoomMusicPlayer(context)
 
-    // create temp file that will hold byte array
-    val tempMp3 = File.createTempFile("kurchina", "mp3", context.cacheDir)
 
-    init {
-        tempMp3.deleteOnExit()
-    }
 
     private val apiService by lazy {
         ApiService.create()
@@ -39,7 +34,7 @@ class RoomRepository(private val context: Context) {
 
     fun getCurrentRoom(): Room? = currentRoom
 
-    fun getMediaPlayer(): MediaPlayer = mp
+    fun getMediaPlayer(): MediaPlayer = roomMusicPlayer.getMediaPlayer()
 
     fun setConnectToExistRoom(newValue: Boolean) {
         connectToExistRoom = newValue
@@ -71,41 +66,12 @@ class RoomRepository(private val context: Context) {
         apiService.getMusic(room_id, user_id)
     }
 
-    fun setMusicFromByteArray(byteString: ByteString) {
-
-        Log.i("readBytes()", byteString.size.toString())
-
-        try {
-            val fos = FileOutputStream(tempMp3)
-            fos.write(byteString.toByteArray())
-            fos.close()
-
-            // resetting mediaplayer instance to evade problems
-            mp.reset()
-
-            // In case you run into issues with threading consider new instance like:
-            // MediaPlayer mediaPlayer = new MediaPlayer();
-
-            // Tried passing path directly, but kept getting
-            // "Prepare failed.: status=0x1"
-            // so using file descriptor instead
-            val fis = FileInputStream(tempMp3)
-            mp.setDataSource(fis.fd)
-            mp.prepare()
-            mp.start()
-        } catch (ex: IOException) {
-            val s = ex.toString()
-            ex.printStackTrace()
-        }
-
-    }
-
-    fun playSound(resid: Int) {
-        val eSound = MediaPlayer.create(context, resid)
-        eSound.start()
-    }
-
     suspend fun deleteRoom(roomId: String, userId: String?) {
         apiService.deleteRoom(roomId, userId)
     }
+
+
+    fun addNextPartMusic() = roomMusicPlayer.addNextPartMusic()
+
+    fun playBufferMediaPlayer() = roomMusicPlayer.playBufferMediaPlayer()
 }

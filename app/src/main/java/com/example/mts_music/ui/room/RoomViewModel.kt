@@ -69,6 +69,10 @@ class RoomViewModel(context: Context, private val repository: RoomRepository) : 
         repository.deleteRoom(id, sharedPreference.getValueInt(ID).toString())
     }
 
+    fun addNextPartMusic() = repository.addNextPartMusic()
+
+    fun playBufferMediaPlayer() = repository.playBufferMediaPlayer()
+
 
     class RoomViewModelFactory(
         private val context: Context,
