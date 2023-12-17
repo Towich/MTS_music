@@ -2,7 +2,6 @@
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=F7002C&random=false&width=435&lines=%D0%94%D0%BE%D0%B1%D1%80%D0%BE+%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C+%D0%B2+MTS_music!)](https://git.io/typing-svg)
 </br>MTS_music - это приложение для совместного прослушивания музыки в режиме реального времени с друзьями или случайными людьми со всего мира.
 
-<img src="https://github.com/Towich/MTS_music/assets/100920758/8e5e8382-7755-474e-b647-66d5be8898dd" width="190">
 <img src="https://github.com/Towich/MTS_music/assets/100920758/39f230b0-e02f-438c-b93b-fa55a1252c8c" width="190">
 <img src="https://github.com/Towich/MTS_music/assets/100920758/495d7e6c-13b8-47e4-ad55-4772b37c77b4" width="190">
 <img src="https://github.com/Towich/MTS_music/assets/100920758/0a8263a0-5152-41bd-8a80-f9cd26bddbaf" width="190">
